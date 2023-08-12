@@ -9,8 +9,8 @@ const Header = () => {
       <S.PageWrapper>
         <S.Page>시간표 관리</S.Page>
         <S.Page>수행평가 관리</S.Page>
-        <img src={Alram}></img>
-        <S.Page>씨발철우</S.Page>
+        <img src={Alram} />
+        <S.Page>대충 프로필</S.Page>
       </S.PageWrapper>
     </S.HeaderArea>
   );
