@@ -4,12 +4,10 @@ import * as S from "./style";
 
 const Main = () => {
   return (
-    <>
-      <S.Container>
-        <TimeTable />
-        <ChangeClass />
-      </S.Container>
-    </>
+    <S.Container>
+      <TimeTable />
+      <ChangeClass />
+    </S.Container>
   );
 };
 
