@@ -1,8 +1,11 @@
 import { styled } from "styled-components";
 
-export const container = styled.div`
+export const Container = styled.div``;
+
+export const ClassWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  gap: 20px;
+  padding: 10px 0 10px 450px;
 `;
 
 export const Class = styled.select`
@@ -16,13 +19,9 @@ export const Class = styled.select`
 `;
 
 export const Table = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 650px;
-  height: 580px;
   overflow: hidden;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
+  border-radius: 0 0 20px 20px;
   table {
     border-collapse: collapse;
   }
@@ -34,13 +33,13 @@ export const Table = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 108.3px;
-    height: 75px;
-    text-align: center;
+    width: 108px;
+    height: 70px;
     font: ${({ theme }) => theme.fonts.Regular24};
   }
   td {
     border-right: 1px solid ${({ theme }) => theme.colors.TableLine};
+    border-left: 1px solid ${({ theme }) => theme.colors.TableLine};
   }
   p {
     font: ${({ theme }) => theme.fonts.regular12};
@@ -48,11 +47,8 @@ export const Table = styled.div`
 `;
 
 export const Day = styled.div`
-  width: 650px;
-  height: 75px;
+  height: 70px;
   background-color: ${({ theme }) => theme.colors.Main};
-  box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.05),
-    0px 0px 0px 1px rgba(0, 0, 0, 0.08);
   border-radius: 20px 20px 0px 0px;
   padding-left: 106px;
   display: flex;
