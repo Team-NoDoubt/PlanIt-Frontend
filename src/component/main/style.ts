@@ -2,8 +2,13 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center;
+  align-items: center;
   justify-content: space-between;
-  margin-top: 80px;
   padding: 0 190px;
+  margin-top: 10vh;
+  @media screen and (max-width: 1450px) {
+    flex-direction: column;
+    margin-top: 50px;
+    gap: 50px;
+  }
 `;
