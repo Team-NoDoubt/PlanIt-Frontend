@@ -1,4 +1,4 @@
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider, QueryClient } from "react-query";
 import Router from "./Router";
 import GlobalStyle from "./style/globalStyle";
 import { ThemeProvider } from "styled-components";
