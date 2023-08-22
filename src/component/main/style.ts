@@ -28,4 +28,5 @@ export const Class = styled.select`
   border: 0.1px solid ${({ theme }) => theme.colors.White};
   background-color: ${({ theme }) => theme.colors.White};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  outline: none;
 `;

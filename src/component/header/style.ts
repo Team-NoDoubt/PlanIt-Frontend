@@ -39,7 +39,13 @@ export const Page = styled.div`
     bottom: -3px;
     width: 100%;
     height: 1.5px;
-    background-color: ${({ theme }) => theme.colors.Main};
+    background: linear-gradient(
+      146deg,
+      #1bb5ea 0%,
+      #1bb5ea 0.01%,
+      #04a3e7 30.86%,
+      #1567fb 100%
+    );
     transform-origin: left;
     transition: transform 0.3s ease-in-out;
     transform: scaleX(0);

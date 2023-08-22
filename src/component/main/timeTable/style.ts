@@ -2,17 +2,16 @@ import { styled } from "styled-components";
 
 export const Container = styled.div``;
 
-export const Table = styled.div`
+export const Table = styled.table`
   overflow: hidden;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 0 0 20px 20px;
-  table {
-    border-collapse: collapse;
-  }
+  border-collapse: collapse;
+  width: 648px;
   tr {
+    display: block;
     float: left;
   }
-  th,
   td {
     display: flex;
     align-items: center;
@@ -20,8 +19,6 @@ export const Table = styled.div`
     width: 108px;
     height: 70px;
     font: ${({ theme }) => theme.fonts.Regular24};
-  }
-  td {
     border-right: 1px solid ${({ theme }) => theme.colors.TableLine};
     border-left: 1px solid ${({ theme }) => theme.colors.TableLine};
   }
