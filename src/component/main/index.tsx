@@ -1,23 +1,29 @@
 import ChangeClass from "./classChange";
 import TimeTable from "./timeTable";
 import * as S from "./style";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { getTimetableList } from "../../utils/apis/timetable";
 import { Class, Grade } from "../../constants/main";
 
 const Main = () => {
-  const [gradeOption, setGradeOption] = useState(1);
-  const [classOption, setClassOption] = useState(1);
+  const [gradeOption, setGradeOption] = useState("1");
+  const [classOption, setClassOption] = useState("1");
+  const { data, refetch } = getTimetableList(
+    Number(gradeOption),
+    Number(classOption)
+  );
 
-  const onGradeChange = (e: any) => {
+  const onGradeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setGradeOption(e.currentTarget.value);
+    refetch();
   };
 
-  const onClassChange = (e: any) => {
+  const onClassChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setClassOption(e.currentTarget.value);
+    refetch();
   };
 
-  const { data, isLoading } = getTimetableList(gradeOption, classOption);
+  // const { data, isLoading } = getTimetableList(gradeOption, classOption);
 
   useEffect(() => {
     console.log(1);
@@ -46,7 +52,7 @@ const Main = () => {
             })}
           </S.Class>
         </S.ClassWrapper>
-        <TimeTable data={data} />
+        <TimeTable data={data!} />
       </div>
       <ChangeClass />
     </S.Container>
