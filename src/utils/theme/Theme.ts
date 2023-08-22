@@ -6,6 +6,7 @@ const colors = {
   White: "#FFFFFF",
   Black: "#000000",
   TableLine: "#CBCBCB",
+  LoginInput: "#999999",
 };
 
 const fonts = {
