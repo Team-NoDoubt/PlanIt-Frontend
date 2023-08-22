@@ -3,7 +3,7 @@ export interface ViewTimeTableRequest {
   class: number;
 }
 
-export interface TimetableList {
+interface TimetableList {
   grade: number;
   class_num: number;
   period: number;
@@ -11,7 +11,7 @@ export interface TimetableList {
   subject: string;
 }
 
-export interface ff {
+export interface TimetableListResponse {
   timetable_list: TimetableList[];
 }
 
