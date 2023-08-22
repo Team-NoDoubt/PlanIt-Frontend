@@ -12,11 +12,11 @@ export const Class = [
 ];
 
 export const Date = [
-  { value: "월" },
-  { value: "화" },
-  { value: "수" },
-  { value: "목" },
-  { value: "금" },
+  { value: "월", key: 1 },
+  { value: "화", key: 2 },
+  { value: "수", key: 3 },
+  { value: "목", key: 4 },
+  { value: "금", key: 5 },
 ];
 
 export const Period = [
