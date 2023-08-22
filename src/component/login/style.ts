@@ -13,7 +13,6 @@ export const LoginArea = styled.div`
 export const Logo = styled.img`
   width: 245px;
   height: 50px;
-  cursor: pointer;
 `;
 
 export const IconLeft = styled.img`
@@ -54,4 +53,5 @@ export const LoginBtn = styled.button`
   align-items: center;
   border-radius: 20px;
   border: none;
+  cursor: pointer;
 `;
