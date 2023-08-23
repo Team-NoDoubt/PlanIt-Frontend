@@ -1,7 +1,5 @@
 import { styled } from "styled-components";
 
-export const Container = styled.div``;
-
 export const Table = styled.table`
   overflow: hidden;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
