@@ -1,10 +1,8 @@
 import * as S from "./style";
-import { FC, useEffect } from "react";
-import { Grade, Class, Date, Period } from "../../../constants/main";
-import { AxiosResponse } from "axios";
+import { FC } from "react";
+import { Date, Period } from "../../../constants/main";
 import { TimetableListResponse } from "../../../utils/apis/timetable/type";
 import { SubjectMap } from "../../../constants/type";
-import { UseQueryResult } from "react-query";
 
 interface PropsType {
   data: TimetableListResponse;
@@ -12,7 +10,7 @@ interface PropsType {
 
 const TimeTable: FC<PropsType> = ({ data: data }: PropsType) => {
   return (
-    <S.Container>
+    <>
       <S.Day>
         {Date.map((item, index) => {
           return <span key={index}>{item.value}</span>;
@@ -39,7 +37,7 @@ const TimeTable: FC<PropsType> = ({ data: data }: PropsType) => {
           })}
         </tbody>
       </S.Table>
-    </S.Container>
+    </>
   );
 };
 
