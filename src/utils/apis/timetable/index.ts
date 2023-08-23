@@ -1,29 +1,18 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { instance } from "../index";
 import { TimetableListResponse } from "./type";
 
 const router = "/timetable";
 
-// export const getTimetableList = (t1: number, t2: number) => {
-//   const queryClient = useQueryClient();
-//   const response = async () => {
-//     const params = {
-//       grade: t1,
-//       class: t2,
-//     };
-//     return await instance.get<TimetableListResponse>(`${router}`, { params });
-//   };
-//   return useQuery(["timetable"], response, {
-//     onSuccess: () => console.log(1234),
-//   });
-// };
-
-export const getTimetableList = (t1: number, t2: number) => {
+export const getTimetableList = (
+  timetableGrade: number,
+  timetableClass: number
+) => {
   return useQuery(
-    ["timetable", t1, t2],
+    ["timetable", timetableGrade, timetableClass],
     async () => {
       const { data } = await instance.get<Promise<TimetableListResponse>>(
-        `${router}?grade=${t1}&class=${t2}`
+        `${router}?grade=${timetableGrade}&class=${timetableClass}`
       );
       return data;
     },
