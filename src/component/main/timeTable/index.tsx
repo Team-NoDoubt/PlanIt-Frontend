@@ -1,5 +1,4 @@
 import * as S from "./style";
-import { FC } from "react";
 import { Date, Period } from "../../../constants/main";
 import { TimetableListResponse } from "../../../utils/apis/timetable/type";
 import { SubjectMap } from "../../../constants/type";
@@ -8,7 +7,7 @@ interface PropsType {
   data: TimetableListResponse;
 }
 
-const TimeTable: FC<PropsType> = ({ data: data }: PropsType) => {
+const TimeTable = ({ data }: PropsType) => {
   return (
     <>
       <S.Day>
