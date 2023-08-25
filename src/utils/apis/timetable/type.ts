@@ -15,7 +15,7 @@ export interface TimetableListResponse {
   timetable_list: TimetableList[];
 }
 
-export interface ChangeDetailsList {
+export interface ChangeDetailList {
   request_subject: string;
   request_date: string;
   request_period: number;
