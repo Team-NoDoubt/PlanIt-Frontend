@@ -46,7 +46,6 @@ export const Page = styled.div`
       #04a3e7 30.86%,
       #1567fb 100%
     );
-
     transform-origin: left;
     transition: transform 0.3s ease-in-out;
     transform: scaleX(0);
