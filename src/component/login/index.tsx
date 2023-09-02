@@ -30,10 +30,13 @@ const Login = () => {
       <S.IconRight src={LoginRight} />
       <S.Logo src={PlanitLogo} />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <S.Input placeholder="ID" />
       <S.Input placeholder="Password" />
       <S.LoginBtn>Login</S.LoginBtn>
 =======
+=======
+>>>>>>> Stashed changes
       <S.Input placeholder="ID" name="id" onChange={onloginOptionChange} />
       <S.Input
         placeholder="Password"
