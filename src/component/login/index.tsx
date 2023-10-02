@@ -1,56 +1,49 @@
 import * as S from "./style";
 import { PlanitLogo } from "../../assets/logo";
 import { LoginLeft, LoginRight } from "../../assets/icons";
+import { useState, ChangeEvent } from "react";
+import { postLogin } from "../../utils/apis/login";
 
 const Login = () => {
-<<<<<<< Updated upstream
-=======
   const [loginOption, setLoginOption] = useState({
-    id: "",
-    password: "",
+    idOption: "",
+    passwordOption: "",
   });
-  const { id, password } = loginOption;
+  const { idOption, passwordOption } = loginOption;
   const { mutate: onclickLoginBtn } = postLogin({
-    account_id: id,
-    password: password,
+    account_id: idOption,
+    password: passwordOption,
   });
 
-  const onloginOptionChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = target;
+  const onloginOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLoginOption({
       ...loginOption,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 
->>>>>>> Stashed changes
   return (
     <S.LoginArea>
       <S.IconLeft src={LoginLeft} />
       <S.IconRight src={LoginRight} />
       <S.Logo src={PlanitLogo} />
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      <S.Input placeholder="ID" />
-      <S.Input placeholder="Password" />
-      <S.LoginBtn>Login</S.LoginBtn>
-=======
-=======
->>>>>>> Stashed changes
-      <S.Input placeholder="ID" name="id" onChange={onloginOptionChange} />
+      <S.Input
+        placeholder="ID"
+        name="idOption"
+        onChange={onloginOptionChange}
+      />
       <S.Input
         placeholder="Password"
-        name="password"
+        name="passwordOption"
         onChange={onloginOptionChange}
         type="password"
       />
       <S.LoginBtn
-        disabled={id === "" || password === ""}
+        disabled={idOption === "" || passwordOption === ""}
         onClick={() => onclickLoginBtn()}
       >
         Login
       </S.LoginBtn>
->>>>>>> Stashed changes
     </S.LoginArea>
   );
 };
