@@ -77,8 +77,6 @@ export const Reason = styled.div`
   margin-top: 10px;
 `;
 
-export const MakeupPlanWrapper = styled.div``;
-
 export const PlanText = styled.div`
   font: ${({ theme }) => theme.fonts.Medium20};
   display: flex;
@@ -108,8 +106,6 @@ export const PlanTableContent = styled(PlanTable)`
     cursor: pointer;
   }
 `;
-
-export const ReplacePlanWrapper = styled.div``;
 
 export const HelpDiscription = styled.div`
   font: ${({ theme }) => theme.fonts.Regular12};

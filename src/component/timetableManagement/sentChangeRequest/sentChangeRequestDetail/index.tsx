@@ -30,7 +30,7 @@ const SentChangeRequestDetail = () => {
               <hr />
             </S.HeaderText>
           </S.Header>
-          <S.MakeupPlanWrapper>
+          <div>
             <S.PlanText>결 보강 계획서</S.PlanText>
             <S.PlanTable>
               <tbody>
@@ -66,36 +66,34 @@ const SentChangeRequestDetail = () => {
             <S.HelpDiscription>
               거절된 상태를 누르면 거절 사유를 볼 수 있어요
             </S.HelpDiscription>
-          </S.MakeupPlanWrapper>
-          <S.ReplacePlanWrapper>
-            <S.PlanText>수업교체 계획서</S.PlanText>
-            <S.PlanTable>
-              <tbody>
-                <tr>
-                  {ReplaceClassType.map((item, index) => {
-                    return (
-                      <td style={{ width: `${item.size}%` }} key={index}>
-                        {item.value}
-                      </td>
-                    );
-                  })}
-                </tr>
-              </tbody>
-            </S.PlanTable>
-            <S.PlanTableContent>
-              <tbody>
-                <tr>
-                  {ReplaceClassContent.map((item, index) => {
-                    return (
-                      <td style={{ width: `${item.size}%` }} key={index}>
-                        {item.value}
-                      </td>
-                    );
-                  })}
-                </tr>
-              </tbody>
-            </S.PlanTableContent>
-          </S.ReplacePlanWrapper>
+          </div>
+          <S.PlanText>수업교체 계획서</S.PlanText>
+          <S.PlanTable>
+            <tbody>
+              <tr>
+                {ReplaceClassType.map((item, index) => {
+                  return (
+                    <td style={{ width: `${item.size}%` }} key={index}>
+                      {item.value}
+                    </td>
+                  );
+                })}
+              </tr>
+            </tbody>
+          </S.PlanTable>
+          <S.PlanTableContent>
+            <tbody>
+              <tr>
+                {ReplaceClassContent.map((item, index) => {
+                  return (
+                    <td style={{ width: `${item.size}%` }} key={index}>
+                      {item.value}
+                    </td>
+                  );
+                })}
+              </tr>
+            </tbody>
+          </S.PlanTableContent>
         </S.Wrapper>
       </S.Container>
     </S.Area>

@@ -25,88 +25,84 @@ const PlanWrite = () => {
               <hr />
             </S.HeaderText>
           </S.Header>
-          <S.MakeupPlanWrapper>
-            <S.PlanText>결 보강 계획서</S.PlanText>
-            <S.PlanTable>
-              <tbody>
-                <tr>
-                  {MakeupClassType.map((item, index) => {
-                    return (
-                      <td style={{ width: `${item.size}%` }} key={index}>
-                        {item.value}
-                      </td>
-                    );
-                  })}
-                </tr>
-              </tbody>
-            </S.PlanTable>
-            <S.PlanTableContent>
-              <tbody>
-                {makeUpClassContents.map(() => {
+          <S.PlanText>결 보강 계획서</S.PlanText>
+          <S.PlanTable>
+            <tbody>
+              <tr>
+                {MakeupClassType.map((item, index) => {
                   return (
-                    <tr>
-                      {MakeupClassContent.map((item, index) => {
-                        return (
-                          <td
-                            style={{ width: `${item.size}%`, height: 35 }}
-                            key={index}
-                          >
-                            {item.value}
-                          </td>
-                        );
-                      })}
-                    </tr>
+                    <td style={{ width: `${item.size}%` }} key={index}>
+                      {item.value}
+                    </td>
                   );
                 })}
-              </tbody>
-            </S.PlanTableContent>
-            <S.AddListIconLayout
-              onClick={() => setMakeUpClassContents((prev) => [...prev, 0])}
-            >
-              <img src={AddList} />
-            </S.AddListIconLayout>
-          </S.MakeupPlanWrapper>
-          <S.ReplacePlanWrapper>
-            <S.PlanText>수업교체 계획서</S.PlanText>
-            <S.PlanTable>
-              <tbody>
-                <tr>
-                  {ReplaceClassType.map((item, index) => {
-                    return (
-                      <td style={{ width: `${item.size}%` }} key={index}>
-                        {item.value}
-                      </td>
-                    );
-                  })}
-                </tr>
-              </tbody>
-            </S.PlanTable>
-            <S.PlanTableContent>
-              <tbody>
-                {replaceClassContents.map(() => {
+              </tr>
+            </tbody>
+          </S.PlanTable>
+          <S.PlanTableContent>
+            <tbody>
+              {makeUpClassContents.map(() => {
+                return (
+                  <tr>
+                    {MakeupClassContent.map((item, index) => {
+                      return (
+                        <td
+                          style={{ width: `${item.size}%`, height: 35 }}
+                          key={index}
+                        >
+                          {item.value}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </S.PlanTableContent>
+          <S.AddListIconLayout
+            onClick={() => setMakeUpClassContents((prev) => [...prev, 0])}
+          >
+            <img src={AddList} />
+          </S.AddListIconLayout>
+          <S.PlanText>수업교체 계획서</S.PlanText>
+          <S.PlanTable>
+            <tbody>
+              <tr>
+                {ReplaceClassType.map((item, index) => {
                   return (
-                    <tr>
-                      {ReplaceClassContent.map((item, index) => {
-                        return (
-                          <td
-                            style={{ width: `${item.size}%`, height: 35 }}
-                            key={index}
-                          >
-                            {item.value}
-                          </td>
-                        );
-                      })}
-                    </tr>
+                    <td style={{ width: `${item.size}%` }} key={index}>
+                      {item.value}
+                    </td>
                   );
                 })}
-              </tbody>
-            </S.PlanTableContent>
-            <S.AddListIconLayout
-              onClick={() => setReplaceClassContents((prev) => [...prev, 0])}
-            >
-              <img src={AddList} />
-            </S.AddListIconLayout>
-          </S.ReplacePlanWrapper>
+              </tr>
+            </tbody>
+          </S.PlanTable>
+          <S.PlanTableContent>
+            <tbody>
+              {replaceClassContents.map(() => {
+                return (
+                  <tr>
+                    {ReplaceClassContent.map((item, index) => {
+                      return (
+                        <td
+                          style={{ width: `${item.size}%`, height: 35 }}
+                          key={index}
+                        >
+                          {item.value}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </S.PlanTableContent>
+          <S.AddListIconLayout
+            onClick={() => setReplaceClassContents((prev) => [...prev, 0])}
+          >
+            <img src={AddList} />
+          </S.AddListIconLayout>
         </S.Wrapper>
       </S.Container>
     </S.Area>
