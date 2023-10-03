@@ -54,4 +54,9 @@ export const LoginBtn = styled.button`
   border-radius: 20px;
   border: none;
   cursor: pointer;
+
+  &:disabled {
+    background-color: #dfdfde;
+    cursor: default;
+  }
 `;
