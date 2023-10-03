@@ -6,13 +6,13 @@ import { postLogin } from "../../utils/apis/login";
 
 const Login = () => {
   const [loginOption, setLoginOption] = useState({
-    idOption: "",
-    passwordOption: "",
+    id: "",
+    password: "",
   });
-  const { idOption, passwordOption } = loginOption;
-  const { mutate: onclickLoginBtn } = postLogin({
-    account_id: idOption,
-    password: passwordOption,
+  const { id, password } = loginOption;
+  const { mutate: onClickLoginBtn } = postLogin({
+    account_id: id,
+    password: password,
   });
 
   const onloginOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,21 +27,14 @@ const Login = () => {
       <S.IconLeft src={LoginLeft} />
       <S.IconRight src={LoginRight} />
       <S.Logo src={PlanitLogo} />
-      <S.Input
-        placeholder="ID"
-        name="idOption"
-        onChange={onloginOptionChange}
-      />
+      <S.Input placeholder="ID" name="id" onChange={onloginOptionChange} />
       <S.Input
         placeholder="Password"
-        name="passwordOption"
+        name="password"
         onChange={onloginOptionChange}
         type="password"
       />
-      <S.LoginBtn
-        disabled={idOption === "" || passwordOption === ""}
-        onClick={() => onclickLoginBtn()}
-      >
+      <S.LoginBtn disabled={!id || !password} onClick={onClickLoginBtn}>
         Login
       </S.LoginBtn>
     </S.LoginArea>
