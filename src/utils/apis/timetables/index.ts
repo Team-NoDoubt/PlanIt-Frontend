@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { instance } from "../index";
-import { TimetableListResponse } from "./type";
+import { TimetableListResponse, ChangeClassResponse } from "./type";
 
-const router = "/timetable";
+const router = "/timetables";
 
 export const getTimetableList = (
   timetableGrade: number,
@@ -20,13 +20,11 @@ export const getTimetableList = (
   );
 };
 
-// export const getChangeDetailsList = async (t1: number, t2: number) => {
-//   const params = {
-//     grade: t1,
-//     class: t2,
-//   };
-//   return await instance.get<Promise<ChangeDetailsList>>(
-//     `${router}/changeDetails`,
-//     { params }
-//   );
-// }; api 나온 후 기능 구현
+export const getChangeDetailsList = (grade: number, classNum: number) => {
+  return useQuery(["ChangeDetailsList", grade, classNum], async () => {
+    const { data } = await instance.get<Promise<ChangeClassResponse>>(
+      `${router}/changed?grade=${grade}&class=${classNum}`
+    );
+    return data;
+  });
+};
