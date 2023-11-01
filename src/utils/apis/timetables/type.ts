@@ -23,11 +23,11 @@ export interface ChangeClassRequest {
 export interface ChangeDetailsList {
   changed_subject: string;
   changed_date: Date;
-  changed_period: Number;
+  changed_period: number;
   changed_teacher: string;
   request_subject: string;
   request_date: Date;
-  request_period: Number;
+  request_period: number;
   request_teacher: string;
 }
 
