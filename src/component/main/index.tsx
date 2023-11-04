@@ -1,4 +1,4 @@
-import ChangeClass from "./classChange";
+import ClassChange from "./classChange";
 import TimeTable from "./timeTable";
 import * as S from "./style";
 import { ChangeEvent, useState } from "react";
@@ -68,7 +68,7 @@ const Main = () => {
         </S.ClassWrapper>
         <TimeTable data={data!} />
       </div>
-      <ChangeClass data={changeClass!} />
+      <ClassChange data={changeClass!} />
     </S.Container>
   );
 };
