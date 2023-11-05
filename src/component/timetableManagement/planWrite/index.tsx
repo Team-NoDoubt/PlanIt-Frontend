@@ -9,8 +9,11 @@ import {
 import { postPlanWrite } from "../../../utils/apis/timetable";
 import { ChangeEvent, useState } from "react";
 import { AddList } from "../../../assets/icons";
+import { useCookies } from "react-cookie";
 
 const PlanWrite = () => {
+  const [cookies] = useCookies();
+  const name = cookies.name;
   const [replaceClassContents, setReplaceClassContents] = useState([0]);
   const [makeUpClassContents, setMakeUpClassContents] = useState([0]);
   const [planWrite, setPlanWrite] = useState({
@@ -40,7 +43,7 @@ const PlanWrite = () => {
           <S.Header>
             <span>결 보강 및 수업교체 계획서</span>
             <S.HeaderText>
-              <S.Teacher>요청교사: 김설우</S.Teacher>
+              <S.Teacher>요청교사: {name}</S.Teacher>
               <S.Reason>
                 사유:{" "}
                 <S.ReasonInput
