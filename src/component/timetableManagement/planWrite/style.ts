@@ -60,6 +60,12 @@ export const Reason = styled.div`
   margin-top: 10px;
 `;
 
+export const ReasonInput = styled.input`
+  outline: none;
+  border: none;
+  width: 700px;
+`;
+
 export const PlanText = styled.div`
   font: ${({ theme }) => theme.fonts.Medium20};
   display: flex;
@@ -75,8 +81,6 @@ export const PlanTable = styled.table`
   td {
     font: ${({ theme }) => theme.fonts.Medium14};
     border: 0.1px solid ${({ theme }) => theme.colors.Black};
-    margin-left: auto;
-    margin-right: auto;
   }
   font: ${({ theme }) => theme.fonts.Medium14};
   background-color: ${({ theme }) => theme.colors.Skyblue};
@@ -88,6 +92,18 @@ export const PlanTableContent = styled(PlanTable)`
     border-top: none;
     cursor: pointer;
   }
+  input {
+    border: none;
+    outline: none;
+    text-align: center;
+  }
+`;
+
+export const TableInput = styled.input`
+  border: none;
+  outline: none;
+  font: ${({ theme }) => theme.fonts.Regular16};
+  text-align: center;
 `;
 
 export const AddListIconLayout = styled.div`

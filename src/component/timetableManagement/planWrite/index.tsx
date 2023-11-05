@@ -1,35 +1,62 @@
 import * as S from "./style";
 import {
-  MakeupClassContent,
-  MakeupClassType,
-  ReplaceClassContent,
-  ReplaceClassType,
+  WirteMakeupClass,
+  WirteReplaceClass,
+  PeriodDropdown,
+  GradeClassDropdown,
+  TeacherDropdown,
 } from "../../../constants/timetableManagement";
-import { useState } from "react";
+import { postPlanWrite } from "../../../utils/apis/timetable";
+import { ChangeEvent, useState } from "react";
 import { AddList } from "../../../assets/icons";
 
 const PlanWrite = () => {
   const [replaceClassContents, setReplaceClassContents] = useState([0]);
   const [makeUpClassContents, setMakeUpClassContents] = useState([0]);
+  const [planWrite, setPlanWrite] = useState({
+    reason: "",
+    reinforcement_list: [],
+    replacement_list: [],
+  });
+  const { reason, reinforcement_list, replacement_list } = planWrite;
+  const { mutate: onClickWriteBtn } = postPlanWrite({
+    reason: reason,
+    reinforcement_list: reinforcement_list,
+    replacement_list: replacement_list,
+  });
+  const planWriteChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPlanWrite({
+      ...planWrite,
+      [e.target.name]: e.target.value,
+    });
+    console.log(planWrite);
+  };
 
   return (
     <S.Area>
-      <S.RequestButton>요청하기</S.RequestButton>
+      <S.RequestButton onclick={onClickWriteBtn}>요청하기</S.RequestButton>
       <S.Container>
         <S.Wrapper>
           <S.Header>
             <span>결 보강 및 수업교체 계획서</span>
             <S.HeaderText>
               <S.Teacher>요청교사: 김설우</S.Teacher>
-              <S.Reason>사유: 출장</S.Reason>
+              <S.Reason>
+                사유:{" "}
+                <S.ReasonInput
+                  placeholder="사유를 입력해 주세요"
+                  name={"reason"}
+                  onChange={planWriteChange}
+                />
+              </S.Reason>
               <hr />
             </S.HeaderText>
           </S.Header>
           <S.PlanText>결 보강 계획서</S.PlanText>
-          <S.PlanTable>
+          <S.PlanTable name="dte">
             <tbody>
               <tr>
-                {MakeupClassType.map((item, index) => {
+                {WirteMakeupClass.map((item, index) => {
                   return (
                     <td style={{ width: `${item.size}%` }} key={index}>
                       {item.value}
@@ -41,19 +68,39 @@ const PlanWrite = () => {
           </S.PlanTable>
           <S.PlanTableContent>
             <tbody>
-              {makeUpClassContents.map(() => {
+              {makeUpClassContents.map((_, index) => {
                 return (
-                  <tr>
-                    {MakeupClassContent.map((item, index) => {
-                      return (
-                        <td
-                          style={{ width: `${item.size}%`, height: 35 }}
-                          key={index}
-                        >
-                          {item.value}
-                        </td>
-                      );
-                    })}
+                  <tr key={index}>
+                    <td style={{ width: "13%", height: 35 }}>
+                      <input type="Date" />
+                    </td>
+                    <td style={{ width: "6%", height: 35 }}>
+                      <select>
+                        {PeriodDropdown?.map((item) => {
+                          return <option>{item}</option>;
+                        })}
+                      </select>
+                    </td>
+                    <td style={{ width: "10%", height: 35 }}>
+                      <select>
+                        {GradeClassDropdown?.map((item) => {
+                          return <option>{item}</option>;
+                        })}
+                      </select>
+                    </td>
+                    <td style={{ width: "32%", height: 35 }}>
+                      <input />
+                    </td>
+                    <td style={{ width: "20%", height: 35 }}>
+                      <input />
+                    </td>
+                    <td style={{ width: "15%", height: 35 }}>
+                      <select>
+                        {TeacherDropdown?.map((item) => {
+                          return <option>{item}</option>;
+                        })}
+                      </select>
+                    </td>
                   </tr>
                 );
               })}
@@ -68,7 +115,7 @@ const PlanWrite = () => {
           <S.PlanTable>
             <tbody>
               <tr>
-                {ReplaceClassType.map((item, index) => {
+                {WirteReplaceClass.map((item, index) => {
                   return (
                     <td style={{ width: `${item.size}%` }} key={index}>
                       {item.value}
@@ -78,21 +125,62 @@ const PlanWrite = () => {
               </tr>
             </tbody>
           </S.PlanTable>
-          <S.PlanTableContent>
+          <S.PlanTableContent
+            name={"replacement_list"}
+            onChange={planWriteChange}
+          >
             <tbody>
-              {replaceClassContents.map(() => {
+              {replaceClassContents.map((_, index) => {
                 return (
-                  <tr>
-                    {ReplaceClassContent.map((item, index) => {
-                      return (
-                        <td
-                          style={{ width: `${item.size}%`, height: 35 }}
-                          key={index}
-                        >
-                          {item.value}
-                        </td>
-                      );
-                    })}
+                  <tr key={index}>
+                    <td style={{ width: "14%", height: 35 }}>
+                      <input type="Date" />
+                    </td>
+                    <td style={{ width: "5%", height: 35 }}>
+                      <select>
+                        {PeriodDropdown?.map((item) => {
+                          return <option>{item}</option>;
+                        })}
+                      </select>
+                    </td>
+                    <td style={{ width: "6%", height: 35 }}>
+                      <select>
+                        {GradeClassDropdown?.map((item) => {
+                          return <option>{item}</option>;
+                        })}
+                      </select>
+                    </td>
+                    <td style={{ width: "16%", height: 35 }}>
+                      <input style={{ width: "100%" }} />
+                    </td>
+                    <td style={{ width: "4%", height: 35 }}>↔️</td>
+                    <td style={{ width: "14%", height: 35 }}>
+                      <input type="Date" />
+                    </td>
+                    <td style={{ width: "5%", height: 35 }}>
+                      <select>
+                        {PeriodDropdown?.map((item) => {
+                          return <option>{item}</option>;
+                        })}
+                      </select>
+                    </td>
+                    <td style={{ width: "6%", height: 35 }}>
+                      <select>
+                        {GradeClassDropdown?.map((item) => {
+                          return <option>{item}</option>;
+                        })}
+                      </select>
+                    </td>
+                    <td style={{ width: "16%", height: 35 }}>
+                      <input style={{ width: "100%" }} />
+                    </td>
+                    <td style={{ width: "10%", height: 35 }}>
+                      <select>
+                        {TeacherDropdown?.map((item) => {
+                          return <option>{item}</option>;
+                        })}
+                      </select>
+                    </td>
                   </tr>
                 );
               })}
