@@ -6,11 +6,11 @@ import {
   GradeClassDropdown,
   TeacherDropdown,
 } from "../../../constants/timetableManagement";
-import { postPlanWrite } from "../../../utils/apis/timetable";
 import { ChangeEvent, useState } from "react";
 import { AddList } from "../../../assets/icons";
 import { useCookies } from "react-cookie";
 import { subjectInquiry } from "../../../utils/apis/timetable";
+import { teacherListInquiry } from "../../../utils/apis/teachers";
 
 const PlanWrite = () => {
   const [cookies] = useCookies();
@@ -20,7 +20,6 @@ const PlanWrite = () => {
   const [makeUpClassContents, setMakeUpClassContents] = useState([0]);
 
   const today = new Date();
-  console.log(today);
   const [makeUpSubjectAuto, setMakeUpSubjectAuto] = useState({
     date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
       2,
@@ -101,29 +100,24 @@ const PlanWrite = () => {
     });
   };
 
-  const [planWrite, setPlanWrite] = useState({
-    reason: "",
-    reinforcement_list: [],
-    replacement_list: [],
-  });
-
-  const { reason, reinforcement_list, replacement_list } = planWrite;
-  const { mutate: onClickWriteBtn } = postPlanWrite({
-    reason: reason,
-    reinforcement_list: reinforcement_list,
-    replacement_list: replacement_list,
-  });
-
-  const planWriteChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPlanWrite({
-      ...planWrite,
-      [e.target.name]: e.target.value,
-    });
+  const { data: makeUpTeachers } = teacherListInquiry();
+  const [makeUpTeacherList, setMakeUpTeacherList] = useState<string>(
+    makeUpTeachers?.teacher_id_list[0].teacher_id.toString()!
+  );
+  const makeUpTeachersChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setMakeUpTeacherList(e.target.value);
+  };
+  const { data: replaceTeachers } = teacherListInquiry();
+  const [replaceTeacherList, setReplaceTeacherList] = useState<string>(
+    replaceTeachers?.teacher_id_list[0].teacher_id.toString()!
+  );
+  const replaceTeachersChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setReplaceTeacherList(e.target.value);
   };
 
   return (
     <S.Area>
-      <S.RequestButton onclick={onClickWriteBtn}>요청하기</S.RequestButton>
+      <S.RequestButton>요청하기</S.RequestButton>
       <S.Container>
         <S.Wrapper>
           <S.Header>
@@ -131,12 +125,7 @@ const PlanWrite = () => {
             <S.HeaderText>
               <S.Teacher>요청교사: {name}</S.Teacher>
               <S.Reason>
-                사유:{" "}
-                <S.ReasonInput
-                  placeholder="사유를 입력해 주세요"
-                  name={"reason"}
-                  onChange={planWriteChange}
-                />
+                사유: <S.ReasonInput placeholder="사유를 입력해 주세요" />
               </S.Reason>
               <hr />
             </S.HeaderText>
@@ -197,9 +186,16 @@ const PlanWrite = () => {
                       <input />
                     </td>
                     <td style={{ width: "15%", height: 35 }}>
-                      <select>
-                        {TeacherDropdown?.map((item) => {
-                          return <option>{item}</option>;
+                      <select
+                        onChange={makeUpTeachersChange}
+                        value={makeUpTeacherList}
+                      >
+                        {makeUpTeachers?.teacher_id_list?.map((item) => {
+                          return (
+                            <option value={item.teacher_id}>
+                              {item.teacher_name}
+                            </option>
+                          );
                         })}
                       </select>
                     </td>
@@ -227,10 +223,7 @@ const PlanWrite = () => {
               </tr>
             </tbody>
           </S.PlanTable>
-          <S.PlanTableContent
-            name={"replacement_list"}
-            onChange={planWriteChange}
-          >
+          <S.PlanTableContent>
             <tbody>
               {replaceClassContents.map((_, index) => {
                 return (
@@ -305,9 +298,16 @@ const PlanWrite = () => {
                       <div>{changeSubject?.subject}</div>
                     </td>
                     <td style={{ width: "10%", height: 35 }}>
-                      <select>
-                        {TeacherDropdown?.map((item) => {
-                          return <option>{item}</option>;
+                      <select
+                        onChange={replaceTeachersChange}
+                        value={replaceTeacherList}
+                      >
+                        {replaceTeachers?.teacher_id_list?.map((item) => {
+                          return (
+                            <option value={item.teacher_id}>
+                              {item.teacher_name}
+                            </option>
+                          );
                         })}
                       </select>
                     </td>
