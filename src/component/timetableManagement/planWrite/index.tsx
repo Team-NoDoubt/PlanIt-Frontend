@@ -4,13 +4,13 @@ import {
   WirteReplaceClass,
   PeriodDropdown,
   GradeClassDropdown,
-  TeacherDropdown,
 } from "../../../constants/timetableManagement";
 import { ChangeEvent, useState } from "react";
 import { AddList } from "../../../assets/icons";
 import { useCookies } from "react-cookie";
-import { subjectInquiry } from "../../../utils/apis/timetable";
+import { subjectInquiry, postPlanWrite } from "../../../utils/apis/timetable";
 import { teacherListInquiry } from "../../../utils/apis/teachers";
+import { PlanWriteType } from "../../../utils/apis/timetable/type";
 
 const PlanWrite = () => {
   const [cookies] = useCookies();
@@ -107,6 +107,7 @@ const PlanWrite = () => {
   const makeUpTeachersChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setMakeUpTeacherList(e.target.value);
   };
+
   const { data: replaceTeachers } = teacherListInquiry();
   const [replaceTeacherList, setReplaceTeacherList] = useState<string>(
     replaceTeachers?.teacher_id_list[0].teacher_id.toString()!
@@ -115,9 +116,50 @@ const PlanWrite = () => {
     setReplaceTeacherList(e.target.value);
   };
 
+  const [planWrite, setPlanWrite] = useState<PlanWriteType>({
+    reason: "",
+    reinforcement_list: [],
+    replacement_list: [],
+  });
+  const [reasonState, setReasonState] = useState("");
+  const reasonOnchange = (e: ChangeEvent<HTMLInputElement>) => {
+    setReasonState(e.target.value);
+  };
+  const [planState, setPlanState] = useState("");
+  const planOnchange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPlanState(e.target.value);
+  };
+  const { reason, reinforcement_list, replacement_list } = planWrite;
+  const { mutate: onClickWriteBtn } = postPlanWrite({
+    reason: reason,
+    reinforcement_list: reinforcement_list,
+    replacement_list: replacement_list,
+  });
+
+  const requestForm = () => {
+    setPlanWrite({
+      reason: reasonState,
+      reinforcement_list: [
+        {
+          reinforcement_class_id: data?.timetable_id!,
+          reinforcement_plan: planState,
+          reinforcement_teacher_id: makeUpTeacherList,
+        },
+      ],
+      replacement_list: [
+        {
+          request_timetable_id: requestSubject?.timetable_id!,
+          change_timetable_id: changeSubject?.timetable_id!,
+          replacement_teacher_id: replaceTeacherList,
+        },
+      ],
+    });
+    onClickWriteBtn();
+  };
+
   return (
     <S.Area>
-      <S.RequestButton>요청하기</S.RequestButton>
+      <S.RequestButton onClick={requestForm}>요청하기</S.RequestButton>
       <S.Container>
         <S.Wrapper>
           <S.Header>
@@ -125,7 +167,12 @@ const PlanWrite = () => {
             <S.HeaderText>
               <S.Teacher>요청교사: {name}</S.Teacher>
               <S.Reason>
-                사유: <S.ReasonInput placeholder="사유를 입력해 주세요" />
+                사유:{" "}
+                <S.ReasonInput
+                  placeholder="사유를 입력해 주세요"
+                  value={reasonState}
+                  onChange={reasonOnchange}
+                />
               </S.Reason>
               <hr />
             </S.HeaderText>
@@ -183,7 +230,7 @@ const PlanWrite = () => {
                       <div>{data?.subject}</div>
                     </td>
                     <td style={{ width: "20%", height: 35 }}>
-                      <input />
+                      <input value={planState} onChange={planOnchange} />
                     </td>
                     <td style={{ width: "15%", height: 35 }}>
                       <select
