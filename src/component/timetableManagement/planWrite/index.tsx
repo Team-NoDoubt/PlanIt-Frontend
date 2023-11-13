@@ -19,6 +19,7 @@ const PlanWrite = () => {
   const [replaceClassContents, setReplaceClassContents] = useState([0]);
   const [makeUpClassContents, setMakeUpClassContents] = useState([0]);
 
+  /** 결보강 과목 자동선택 */
   const today = new Date();
   const [makeUpSubjectAuto, setMakeUpSubjectAuto] = useState({
     date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
@@ -33,6 +34,7 @@ const PlanWrite = () => {
     makeUpSubjectAuto.period,
     makeUpSubjectAuto.gradeClass
   );
+  /** 결보강 날짜(요일) */
   const daySelectChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMakeUpSubjectAuto({
       ...makeUpSubjectAuto,
@@ -48,6 +50,7 @@ const PlanWrite = () => {
     });
   };
 
+  /** 수업교체 과목 자동선택 */
   const [requestSubjectAuto, setRequestSubjectAuto] = useState({
     date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
       2,
@@ -61,6 +64,7 @@ const PlanWrite = () => {
     requestSubjectAuto.period,
     requestSubjectAuto.gradeClass
   );
+  /** 수업교체 날짜(요일) */
   const requestDaySelectChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRequestSubjectAuto({
       ...requestSubjectAuto,
@@ -73,7 +77,6 @@ const PlanWrite = () => {
       [e.target.name]: e.target.value,
     });
   };
-
   const [changeSubjectAuto, setChangeSubjectAuto] = useState({
     date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
       2,
@@ -100,20 +103,35 @@ const PlanWrite = () => {
     });
   };
 
-  const { data: makeUpTeachers } = teacherListInquiry();
-  const [makeUpTeacherList, setMakeUpTeacherList] = useState<string>(
-    makeUpTeachers?.teacher_id_list[0].teacher_id.toString()!
-  );
-  const makeUpTeachersChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setMakeUpTeacherList(e.target.value);
+  const useTeacherList = () => {
+    const { data } = teacherListInquiry();
+    const [teacherList, setTeacherList] = useState<string>(
+      data?.teacher_id_list[0].teacher_id.toString()!
+    );
+
+    const handleTeacherListChange = (e: ChangeEvent<HTMLSelectElement>) => {
+      setTeacherList(e.target.value);
+    };
+
+    return { teacherList, handleTeacherListChange };
   };
 
-  const { data: replaceTeachers } = teacherListInquiry();
-  const [replaceTeacherList, setReplaceTeacherList] = useState<string>(
-    replaceTeachers?.teacher_id_list[0].teacher_id.toString()!
-  );
-  const replaceTeachersChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setReplaceTeacherList(e.target.value);
+  const {
+    teacherList: makeUpTeacherList,
+    handleTeacherListChange: handleMakeUpTeacherListChange,
+  } = useTeacherList();
+  const {
+    teacherList: replaceTeacherList,
+    handleTeacherListChange: handleReplaceTeacherListChange,
+  } = useTeacherList();
+
+  const [reasonState, setReasonState] = useState("");
+  const [planState, setPlanState] = useState("");
+  const onInputChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    stateUpdater: React.Dispatch<React.SetStateAction<string>>
+  ) => {
+    stateUpdater(e.target.value);
   };
 
   const [planWrite, setPlanWrite] = useState<PlanWriteType>({
@@ -121,14 +139,6 @@ const PlanWrite = () => {
     reinforcement_list: [],
     replacement_list: [],
   });
-  const [reasonState, setReasonState] = useState("");
-  const reasonOnchange = (e: ChangeEvent<HTMLInputElement>) => {
-    setReasonState(e.target.value);
-  };
-  const [planState, setPlanState] = useState("");
-  const planOnchange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPlanState(e.target.value);
-  };
   const { reason, reinforcement_list, replacement_list } = planWrite;
   const { mutate: onClickWriteBtn } = postPlanWrite({
     reason: reason,
@@ -171,7 +181,9 @@ const PlanWrite = () => {
                 <S.ReasonInput
                   placeholder="사유를 입력해 주세요"
                   value={reasonState}
-                  onChange={reasonOnchange}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    onInputChange(e, setReasonState)
+                  }
                 />
               </S.Reason>
               <hr />
@@ -230,14 +242,19 @@ const PlanWrite = () => {
                       <div>{data?.subject}</div>
                     </td>
                     <td style={{ width: "20%", height: 35 }}>
-                      <input value={planState} onChange={planOnchange} />
+                      <input
+                        value={planState}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                          onInputChange(e, setPlanState)
+                        }
+                      />
                     </td>
                     <td style={{ width: "15%", height: 35 }}>
                       <select
-                        onChange={makeUpTeachersChange}
+                        onChange={handleMakeUpTeacherListChange}
                         value={makeUpTeacherList}
                       >
-                        {makeUpTeachers?.teacher_id_list?.map((item) => {
+                        {makeUpTeacherList?.teacher_id_list?.map((item) => {
                           return (
                             <option value={item.teacher_id}>
                               {item.teacher_name}
@@ -346,10 +363,10 @@ const PlanWrite = () => {
                     </td>
                     <td style={{ width: "10%", height: 35 }}>
                       <select
-                        onChange={replaceTeachersChange}
+                        onChange={handleReplaceTeacherListChange}
                         value={replaceTeacherList}
                       >
-                        {replaceTeachers?.teacher_id_list?.map((item) => {
+                        {replaceTeacherList?.teacher_id_list?.map((item) => {
                           return (
                             <option value={item.teacher_id}>
                               {item.teacher_name}
