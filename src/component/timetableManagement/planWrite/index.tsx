@@ -103,10 +103,10 @@ const PlanWrite = () => {
     });
   };
 
+  const { data: teacherListInquiryData } = teacherListInquiry();
   const useTeacherList = () => {
-    const { data } = teacherListInquiry();
     const [teacherList, setTeacherList] = useState<string>(
-      data?.teacher_id_list[0].teacher_id.toString()!
+      teacherListInquiryData?.teacher_id_list[0].teacher_id.toString()!
     );
 
     const handleTeacherListChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -254,13 +254,15 @@ const PlanWrite = () => {
                         onChange={handleMakeUpTeacherListChange}
                         value={makeUpTeacherList}
                       >
-                        {makeUpTeacherList?.teacher_id_list?.map((item) => {
-                          return (
-                            <option value={item.teacher_id}>
-                              {item.teacher_name}
-                            </option>
-                          );
-                        })}
+                        {teacherListInquiryData?.teacher_id_list?.map(
+                          (item) => {
+                            return (
+                              <option value={item.teacher_id}>
+                                {item.teacher_name}
+                              </option>
+                            );
+                          }
+                        )}
                       </select>
                     </td>
                   </tr>
@@ -366,13 +368,15 @@ const PlanWrite = () => {
                         onChange={handleReplaceTeacherListChange}
                         value={replaceTeacherList}
                       >
-                        {replaceTeacherList?.teacher_id_list?.map((item) => {
-                          return (
-                            <option value={item.teacher_id}>
-                              {item.teacher_name}
-                            </option>
-                          );
-                        })}
+                        {teacherListInquiryData?.teacher_id_list?.map(
+                          (item) => {
+                            return (
+                              <option value={item.teacher_id}>
+                                {item.teacher_name}
+                              </option>
+                            );
+                          }
+                        )}
                       </select>
                     </td>
                   </tr>
