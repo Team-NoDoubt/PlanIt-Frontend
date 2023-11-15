@@ -1,6 +1,6 @@
 import * as S from "./style";
 import { Date, Period } from "../../../constants/main";
-import { TimetableListResponse } from "../../../utils/apis/timetable/type";
+import { TimetableListResponse } from "../../../utils/apis/timetables/type";
 import { SubjectMap } from "../../../constants/type";
 
 interface PropsType {
