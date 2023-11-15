@@ -1,8 +1,11 @@
-import ChangeClass from "./classChange";
+import ClassChange from "./classChange";
 import TimeTable from "./timeTable";
 import * as S from "./style";
 import { ChangeEvent, useState } from "react";
-import { getTimetableList } from "../../utils/apis/timetable";
+import {
+  getChangeDetailsList,
+  getTimetableList,
+} from "../../utils/apis/timetables";
 import { Class, Grade } from "../../constants/main";
 
 const Main = () => {
@@ -14,6 +17,11 @@ const Main = () => {
   const { gradeOption, classOption } = selectOption;
 
   const { data, refetch } = getTimetableList(
+    Number(gradeOption),
+    Number(classOption)
+  );
+
+  const { data: changeClass } = getChangeDetailsList(
     Number(gradeOption),
     Number(classOption)
   );
@@ -60,7 +68,7 @@ const Main = () => {
         </S.ClassWrapper>
         <TimeTable data={data!} />
       </div>
-      <ChangeClass />
+      <ClassChange data={changeClass!} />
     </S.Container>
   );
 };
