@@ -6,6 +6,7 @@ import { Cookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import {
   TimetableListResponse,
+  ChangeClassResponse,
   PlanWriteType,
   SubjectInquiryResponse,
 } from "./type";
@@ -20,12 +21,21 @@ export const getTimetableList = (
     ["timetable", timetableGrade, timetableClass],
     async () => {
       const { data } = await instance.get<TimetableListResponse>(
-        `${router}?grade=${timetableGrade}&class=${timetableClass}`
+        `${router}/date?grade=${timetableGrade}&class=${timetableClass}`
       );
       return data;
     },
     { refetchOnWindowFocus: true }
   );
+};
+
+export const getChangeDetailsList = (grade: number, classNum: number) => {
+  return useQuery(["ChangeDetailsList", grade, classNum], async () => {
+    const { data } = await instance.get<ChangeClassResponse>(
+      `${router}/date/changed?grade=${grade}&class=${classNum}`
+    );
+    return data;
+  });
 };
 
 export const subjectInquiry = (
