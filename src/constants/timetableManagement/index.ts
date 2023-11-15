@@ -85,8 +85,6 @@ export const GradeClassDropdown = [
   "3-4",
 ];
 
-export const TeacherDropdown = ["김설우", "정X관", "조병X", "이정X", "유춘식"];
-
 export const WirteReplaceClass = [
   { value: "날짜(요일)", size: 14 },
   { value: "교시", size: 5 },
