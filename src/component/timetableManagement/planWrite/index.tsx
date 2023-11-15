@@ -344,7 +344,7 @@ const PlanWrite = () => {
                       <select
                         name="period"
                         onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          onDropdownChange(e, setRequestSubjectAuto)
+                          onDropdownChange(e, setChangeSubjectAuto)
                         }
                         value={changeSubjectAuto.period}
                       >
@@ -357,7 +357,7 @@ const PlanWrite = () => {
                       <select
                         name="gradeClass"
                         onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          onDropdownChange(e, setRequestSubjectAuto)
+                          onDropdownChange(e, setChangeSubjectAuto)
                         }
                         value={changeSubjectAuto.gradeClass}
                       >
