@@ -13,9 +13,11 @@ import { teacherListInquiry } from "../../../utils/apis/teachers";
 import { PlanWriteType } from "../../../utils/apis/timetable/type";
 
 const PlanWrite = () => {
+  /** 작성자 이름 추가 */
   const [cookies] = useCookies();
   const name = cookies.name;
 
+  /** 리스트 추가 해주는 부분 */
   const [replaceClassContents, setReplaceClassContents] = useState([0]);
   const [makeUpClassContents, setMakeUpClassContents] = useState([0]);
 
@@ -34,20 +36,21 @@ const PlanWrite = () => {
     makeUpSubjectAuto.period,
     makeUpSubjectAuto.gradeClass
   );
-  /** 결보강 날짜(요일) */
+  /** 결보강 날짜(요일) onchange */
   const daySelectChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMakeUpSubjectAuto({
       ...makeUpSubjectAuto,
       [e.target.name]: e.target.value,
     });
   };
-  const dropBoxChange = (
-    e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>
+  /** 교시,학년-반 드롭다운 onChange  */
+  const onDropdownChange = (
+    e: ChangeEvent<HTMLSelectElement>,
+    staeUpdater: React.Dispatch<
+      React.SetStateAction<{ date: string; period: string; gradeClass: string }>
+    >
   ) => {
-    setMakeUpSubjectAuto({
-      ...makeUpSubjectAuto,
-      [e.target.name]: e.target.value,
-    });
+    staeUpdater((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   /** 수업교체 과목 자동선택 */
@@ -66,12 +69,6 @@ const PlanWrite = () => {
   );
   /** 수업교체 날짜(요일) */
   const requestDaySelectChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setRequestSubjectAuto({
-      ...requestSubjectAuto,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const requestDropBoxChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setRequestSubjectAuto({
       ...requestSubjectAuto,
       [e.target.name]: e.target.value,
@@ -96,13 +93,8 @@ const PlanWrite = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const changeDropBoxChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setChangeSubjectAuto({
-      ...changeSubjectAuto,
-      [e.target.name]: e.target.value,
-    });
-  };
 
+  /* 담당교사(서명) 드롭다운 */
   const { data: teacherListInquiryData } = teacherListInquiry();
   const useTeacherList = () => {
     const [teacherList, setTeacherList] = useState<string>(
@@ -125,6 +117,7 @@ const PlanWrite = () => {
     handleTeacherListChange: handleReplaceTeacherListChange,
   } = useTeacherList();
 
+  /* 사유 & input 입력부분  */
   const [reasonState, setReasonState] = useState("");
   const [planState, setPlanState] = useState("");
   const onInputChange = (
@@ -146,6 +139,7 @@ const PlanWrite = () => {
     replacement_list: replacement_list,
   });
 
+  /* 요청 보내는 함수 */
   const requestForm = () => {
     setPlanWrite({
       reason: reasonState,
@@ -164,7 +158,7 @@ const PlanWrite = () => {
         },
       ],
     });
-    onClickWriteBtn();
+    setTimeout(onClickWriteBtn);
   };
 
   return (
@@ -219,7 +213,9 @@ const PlanWrite = () => {
                     <td style={{ width: "6%", height: 35 }}>
                       <select
                         name="period"
-                        onChange={dropBoxChange}
+                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                          onDropdownChange(e, setMakeUpSubjectAuto)
+                        }
                         value={makeUpSubjectAuto.period}
                       >
                         {PeriodDropdown?.map((item) => {
@@ -230,7 +226,9 @@ const PlanWrite = () => {
                     <td style={{ width: "10%", height: 35 }}>
                       <select
                         name="gradeClass"
-                        onChange={dropBoxChange}
+                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                          onDropdownChange(e, setMakeUpSubjectAuto)
+                        }
                         value={makeUpSubjectAuto.gradeClass}
                       >
                         {GradeClassDropdown?.map((item) => {
@@ -305,7 +303,9 @@ const PlanWrite = () => {
                     <td style={{ width: "5%", height: 35 }}>
                       <select
                         name="period"
-                        onChange={requestDropBoxChange}
+                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                          onDropdownChange(e, setRequestSubjectAuto)
+                        }
                         value={requestSubjectAuto.period}
                       >
                         {PeriodDropdown?.map((item) => {
@@ -316,7 +316,9 @@ const PlanWrite = () => {
                     <td style={{ width: "6%", height: 35 }}>
                       <select
                         name="gradeClass"
-                        onChange={requestDropBoxChange}
+                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                          onDropdownChange(e, setRequestSubjectAuto)
+                        }
                         value={requestSubjectAuto.gradeClass}
                       >
                         {GradeClassDropdown?.map((item) => {
@@ -341,7 +343,9 @@ const PlanWrite = () => {
                     <td style={{ width: "5%", height: 35 }}>
                       <select
                         name="period"
-                        onChange={changeDropBoxChange}
+                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                          onDropdownChange(e, setRequestSubjectAuto)
+                        }
                         value={changeSubjectAuto.period}
                       >
                         {PeriodDropdown?.map((item) => {
@@ -352,7 +356,9 @@ const PlanWrite = () => {
                     <td style={{ width: "6%", height: 35 }}>
                       <select
                         name="gradeClass"
-                        onChange={changeDropBoxChange}
+                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                          onDropdownChange(e, setRequestSubjectAuto)
+                        }
                         value={changeSubjectAuto.gradeClass}
                       >
                         {GradeClassDropdown?.map((item) => {
