@@ -8,9 +8,9 @@ import {
 import { ChangeEvent, useState } from "react";
 import { AddList } from "../../../assets/icons";
 import { useCookies } from "react-cookie";
-import { subjectInquiry, postPlanWrite } from "../../../utils/apis/timetable";
+import { subjectInquiry, postPlanWrite } from "../../../utils/apis/timetables";
 import { teacherListInquiry } from "../../../utils/apis/teachers";
-import { PlanWriteType } from "../../../utils/apis/timetable/type";
+import { PlanWriteType } from "../../../utils/apis/timetables/type";
 
 const PlanWrite = () => {
   /** 작성자 이름 추가 */

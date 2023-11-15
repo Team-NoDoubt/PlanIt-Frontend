@@ -2,7 +2,7 @@ import ChangeClass from "./classChange";
 import TimeTable from "./timeTable";
 import * as S from "./style";
 import { ChangeEvent, useState } from "react";
-import { getTimetableList } from "../../utils/apis/timetable";
+import { getTimetableList } from "../../utils/apis/timetables";
 import { Class, Grade } from "../../constants/main";
 
 const Main = () => {
