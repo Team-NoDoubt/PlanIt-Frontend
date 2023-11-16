@@ -21,9 +21,9 @@ const PlanWrite = () => {
   const [replaceClassContents, setReplaceClassContents] = useState([0]);
   const [makeUpClassContents, setMakeUpClassContents] = useState([0]);
 
-  /** 결보강 과목 자동선택 */
+  /* 과목 자동 선택 */
   const today = new Date();
-  const [makeUpSubjectAuto, setMakeUpSubjectAuto] = useState({
+  const subjectAuto = () => ({
     date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
       2,
       "0"
@@ -31,11 +31,25 @@ const PlanWrite = () => {
     period: "1",
     gradeClass: "1-1",
   });
+  const [makeUpSubjectAuto, setMakeUpSubjectAuto] = useState(subjectAuto());
   const { data } = subjectInquiry(
     makeUpSubjectAuto.date,
     makeUpSubjectAuto.period,
     makeUpSubjectAuto.gradeClass
   );
+  const [requestSubjectAuto, setRequestSubjectAuto] = useState(subjectAuto());
+  const { data: requestSubject } = subjectInquiry(
+    requestSubjectAuto.date,
+    requestSubjectAuto.period,
+    requestSubjectAuto.gradeClass
+  );
+  const [changeSubjectAuto, setChangeSubjectAuto] = useState(subjectAuto());
+  const { data: changeSubject } = subjectInquiry(
+    changeSubjectAuto.date,
+    changeSubjectAuto.period,
+    changeSubjectAuto.gradeClass
+  );
+
   /** 결보강 날짜(요일) onchange */
   const daySelectChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMakeUpSubjectAuto({
@@ -53,20 +67,6 @@ const PlanWrite = () => {
     staeUpdater((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  /** 수업교체 과목 자동선택 */
-  const [requestSubjectAuto, setRequestSubjectAuto] = useState({
-    date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(today.getDate()).padStart(2, "0")}`,
-    period: "1",
-    gradeClass: "1-1",
-  });
-  const { data: requestSubject } = subjectInquiry(
-    requestSubjectAuto.date,
-    requestSubjectAuto.period,
-    requestSubjectAuto.gradeClass
-  );
   /** 수업교체 날짜(요일) */
   const requestDaySelectChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRequestSubjectAuto({
@@ -74,19 +74,6 @@ const PlanWrite = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const [changeSubjectAuto, setChangeSubjectAuto] = useState({
-    date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(today.getDate()).padStart(2, "0")}`,
-    period: "1",
-    gradeClass: "1-1",
-  });
-  const { data: changeSubject } = subjectInquiry(
-    changeSubjectAuto.date,
-    changeSubjectAuto.period,
-    changeSubjectAuto.gradeClass
-  );
   const changeDaySelectChange = (e: ChangeEvent<HTMLInputElement>) => {
     setChangeSubjectAuto({
       ...changeSubjectAuto,
