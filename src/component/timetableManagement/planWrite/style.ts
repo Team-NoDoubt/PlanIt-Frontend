@@ -116,3 +116,20 @@ export const RequestButton = styled.button`
   color: ${({ theme }) => theme.colors.White};
   cursor: pointer;
 `;
+
+export const DownLoadButton = styled.button`
+  position: fixed;
+  left: 5vw;
+  bottom: 3vh;
+  width: auto;
+  border: 0;
+  outline: 0;
+  width: 50px;
+  height: 50px;
+  /* padding: 8px 8px; */
+  background-color: ${({ theme }) => theme.colors.Black};
+  border-radius: 50px;
+  font: ${({ theme }) => theme.fonts.Semibold24};
+  color: ${({ theme }) => theme.colors.White};
+  cursor: pointer;
+`;

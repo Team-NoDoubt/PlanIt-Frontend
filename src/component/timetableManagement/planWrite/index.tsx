@@ -7,15 +7,45 @@ import {
 } from "../../../constants/timetableManagement";
 import { useState } from "react";
 import { AddList } from "../../../assets/icons";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import DownLoadImg from "../../../assets/icons/Download.svg";
 
 const PlanWrite = () => {
   const [replaceClassContents, setReplaceClassContents] = useState([0]);
   const [makeUpClassContents, setMakeUpClassContents] = useState([0]);
 
+  const converToPdf = async () => {
+    const date = new Date();
+
+    const canvas = await html2canvas(document.querySelector("#wrting")!);
+    const imageFile = canvas.toDataURL("image/png");
+    const doc = new jsPDF("p", "mm", "a4");
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    const widthRatio = pageWidth / canvas.width;
+    const customHeight = canvas.height * widthRatio;
+    doc.addImage(imageFile, "png", 0, 0, pageWidth, customHeight);
+    let heightLeft = customHeight;
+    let heightAdd = -pageHeight;
+
+    while (heightLeft >= pageHeight) {
+      doc.addPage();
+      doc.addImage(imageFile, "png", 0, heightAdd, pageWidth, customHeight);
+      heightLeft -= pageHeight;
+      heightAdd -= pageHeight;
+    }
+    doc.save(`결 보강 및 수업교체 계획서_${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}.pdf`);
+  };
+
   return (
     <S.Area>
       <S.RequestButton>요청하기</S.RequestButton>
-      <S.Container>
+      <S.DownLoadButton onClick={converToPdf}>
+        <img src={DownLoadImg} width={30} />
+      </S.DownLoadButton>
+      <S.Container id="wrting">
         <S.Wrapper>
           <S.Header>
             <span>결 보강 및 수업교체 계획서</span>
@@ -46,10 +76,7 @@ const PlanWrite = () => {
                   <tr>
                     {MakeupClassContent.map((item, index) => {
                       return (
-                        <td
-                          style={{ width: `${item.size}%`, height: 35 }}
-                          key={index}
-                        >
+                        <td style={{ width: `${item.size}%`, height: 35 }} key={index}>
                           {item.value}
                         </td>
                       );
@@ -59,9 +86,7 @@ const PlanWrite = () => {
               })}
             </tbody>
           </S.PlanTableContent>
-          <S.AddListIconLayout
-            onClick={() => setMakeUpClassContents((prev) => [...prev, 0])}
-          >
+          <S.AddListIconLayout onClick={() => setMakeUpClassContents((prev) => [...prev, 0])}>
             <img src={AddList} />
           </S.AddListIconLayout>
           <S.PlanText>수업교체 계획서</S.PlanText>
@@ -85,10 +110,7 @@ const PlanWrite = () => {
                   <tr>
                     {ReplaceClassContent.map((item, index) => {
                       return (
-                        <td
-                          style={{ width: `${item.size}%`, height: 35 }}
-                          key={index}
-                        >
+                        <td style={{ width: `${item.size}%`, height: 35 }} key={index}>
                           {item.value}
                         </td>
                       );
@@ -98,9 +120,7 @@ const PlanWrite = () => {
               })}
             </tbody>
           </S.PlanTableContent>
-          <S.AddListIconLayout
-            onClick={() => setReplaceClassContents((prev) => [...prev, 0])}
-          >
+          <S.AddListIconLayout onClick={() => setReplaceClassContents((prev) => [...prev, 0])}>
             <img src={AddList} />
           </S.AddListIconLayout>
         </S.Wrapper>
