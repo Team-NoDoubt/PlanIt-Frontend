@@ -148,7 +148,7 @@ const PlanWrite = () => {
                         onChange={setMakeUpSubjectAuto}
                         value={makeUpSubjectAuto.period}
                       >
-                        {PeriodDropdown?.map((item) => {
+                        {PeriodDropdown.map((item) => {
                           return <option>{item}</option>;
                         })}
                       </select>
@@ -229,7 +229,7 @@ const PlanWrite = () => {
                         onChange={setRequestSubjectAuto}
                         value={requestSubjectAuto.period}
                       >
-                        {PeriodDropdown?.map((item) => {
+                        {PeriodDropdown.map((item) => {
                           return <option>{item}</option>;
                         })}
                       </select>
