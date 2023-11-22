@@ -5,23 +5,21 @@ import {
   PeriodDropdown,
   GradeClassDropdown,
 } from "../../../constants/timetableManagement";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { AddList } from "../../../assets/icons";
 import { useCookies } from "react-cookie";
 import { subjectInquiry, postPlanWrite } from "../../../utils/apis/timetables";
 import { teacherListInquiry } from "../../../utils/apis/teachers";
 import { PlanWriteType } from "../../../utils/apis/timetables/type";
+import { useInput } from "../../../hooks/useInput";
 
 const PlanWrite = () => {
-  /** 작성자 이름 추가 */
   const [cookies] = useCookies();
   const name = cookies.name;
 
-  /** 리스트 추가 해주는 부분 */
   const [replaceClassContents, setReplaceClassContents] = useState([0]);
   const [makeUpClassContents, setMakeUpClassContents] = useState([0]);
 
-  /* 과목 자동 선택 */
   const today = new Date();
   const subjectAuto = () => ({
     date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
@@ -31,88 +29,38 @@ const PlanWrite = () => {
     period: "1",
     gradeClass: "1-1",
   });
-  const [makeUpSubjectAuto, setMakeUpSubjectAuto] = useState(subjectAuto());
+  const { form: makeUpSubjectAuto, onChange: setMakeUpSubjectAuto } = useInput(
+    subjectAuto()
+  );
   const { data } = subjectInquiry(
     makeUpSubjectAuto.date,
     makeUpSubjectAuto.period,
     makeUpSubjectAuto.gradeClass
   );
-  const [requestSubjectAuto, setRequestSubjectAuto] = useState(subjectAuto());
+  const { form: requestSubjectAuto, onChange: setRequestSubjectAuto } =
+    useInput(subjectAuto());
   const { data: requestSubject } = subjectInquiry(
     requestSubjectAuto.date,
     requestSubjectAuto.period,
     requestSubjectAuto.gradeClass
   );
-  const [changeSubjectAuto, setChangeSubjectAuto] = useState(subjectAuto());
+  const { form: changeSubjectAuto, onChange: setChangeSubjectAuto } = useInput(
+    subjectAuto()
+  );
   const { data: changeSubject } = subjectInquiry(
     changeSubjectAuto.date,
     changeSubjectAuto.period,
     changeSubjectAuto.gradeClass
   );
 
-  /** 결보강 날짜(요일) onchange */
-  const daySelectChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setMakeUpSubjectAuto({
-      ...makeUpSubjectAuto,
-      [e.target.name]: e.target.value,
-    });
-  };
-  /** 교시,학년-반 드롭다운 onChange  */
-  const onDropdownChange = (
-    e: ChangeEvent<HTMLSelectElement>,
-    staeUpdater: React.Dispatch<
-      React.SetStateAction<{ date: string; period: string; gradeClass: string }>
-    >
-  ) => {
-    staeUpdater((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  /** 수업교체 날짜(요일) */
-  const requestDaySelectChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setRequestSubjectAuto({
-      ...requestSubjectAuto,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const changeDaySelectChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setChangeSubjectAuto({
-      ...changeSubjectAuto,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  /* 담당교사(서명) 드롭다운 */
   const { data: teacherListInquiryData } = teacherListInquiry();
-  const useTeacherList = () => {
-    const [teacherList, setTeacherList] = useState<string>(
-      teacherListInquiryData?.teacher_id_list[0].teacher_id.toString()!
-    );
+  const { form: makeUpTeacherList, onChange: handleMakeUpTeacherListChange } =
+    useInput(teacherListInquiryData?.teacher_id_list[0].teacher_id.toString()!);
+  const { form: replaceTeacherList, onChange: handleReplaceTeacherListChange } =
+    useInput(teacherListInquiryData?.teacher_id_list[0].teacher_id.toString()!);
 
-    const handleTeacherListChange = (e: ChangeEvent<HTMLSelectElement>) => {
-      setTeacherList(e.target.value);
-    };
-
-    return { teacherList, handleTeacherListChange };
-  };
-
-  const {
-    teacherList: makeUpTeacherList,
-    handleTeacherListChange: handleMakeUpTeacherListChange,
-  } = useTeacherList();
-  const {
-    teacherList: replaceTeacherList,
-    handleTeacherListChange: handleReplaceTeacherListChange,
-  } = useTeacherList();
-
-  /* 사유 & input 입력부분  */
-  const [reasonState, setReasonState] = useState("");
-  const [planState, setPlanState] = useState("");
-  const onInputChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    stateUpdater: React.Dispatch<React.SetStateAction<string>>
-  ) => {
-    stateUpdater(e.target.value);
-  };
+  const { form: reasonState, onChange: setReasonState } = useInput("");
+  const { form: planState, onChange: setPlanState } = useInput("");
 
   const [planWrite, setPlanWrite] = useState<PlanWriteType>({
     reason: "",
@@ -126,7 +74,6 @@ const PlanWrite = () => {
     replacement_list: replacement_list,
   });
 
-  /* 요청 보내는 함수 */
   const requestForm = () => {
     setPlanWrite({
       reason: reasonState,
@@ -162,9 +109,7 @@ const PlanWrite = () => {
                 <S.ReasonInput
                   placeholder="사유를 입력해 주세요"
                   value={reasonState}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    onInputChange(e, setReasonState)
-                  }
+                  onChange={setReasonState}
                 />
               </S.Reason>
               <hr />
@@ -193,16 +138,14 @@ const PlanWrite = () => {
                       <input
                         type="Date"
                         name="date"
-                        onChange={daySelectChange}
+                        onChange={setMakeUpSubjectAuto}
                         value={makeUpSubjectAuto.date}
                       />
                     </td>
                     <td style={{ width: "6%", height: 35 }}>
                       <select
                         name="period"
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          onDropdownChange(e, setMakeUpSubjectAuto)
-                        }
+                        onChange={setMakeUpSubjectAuto}
                         value={makeUpSubjectAuto.period}
                       >
                         {PeriodDropdown?.map((item) => {
@@ -213,9 +156,7 @@ const PlanWrite = () => {
                     <td style={{ width: "10%", height: 35 }}>
                       <select
                         name="gradeClass"
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          onDropdownChange(e, setMakeUpSubjectAuto)
-                        }
+                        onChange={setMakeUpSubjectAuto}
                         value={makeUpSubjectAuto.gradeClass}
                       >
                         {GradeClassDropdown?.map((item) => {
@@ -227,12 +168,7 @@ const PlanWrite = () => {
                       <div>{data?.subject}</div>
                     </td>
                     <td style={{ width: "20%", height: 35 }}>
-                      <input
-                        value={planState}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                          onInputChange(e, setPlanState)
-                        }
-                      />
+                      <input value={planState} onChange={setPlanState} />
                     </td>
                     <td style={{ width: "15%", height: 35 }}>
                       <select
@@ -283,16 +219,14 @@ const PlanWrite = () => {
                       <input
                         type="Date"
                         name="date"
-                        onChange={requestDaySelectChange}
+                        onChange={setRequestSubjectAuto}
                         value={requestSubjectAuto.date}
                       />
                     </td>
                     <td style={{ width: "5%", height: 35 }}>
                       <select
                         name="period"
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          onDropdownChange(e, setRequestSubjectAuto)
-                        }
+                        onChange={setRequestSubjectAuto}
                         value={requestSubjectAuto.period}
                       >
                         {PeriodDropdown?.map((item) => {
@@ -303,9 +237,7 @@ const PlanWrite = () => {
                     <td style={{ width: "6%", height: 35 }}>
                       <select
                         name="gradeClass"
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          onDropdownChange(e, setRequestSubjectAuto)
-                        }
+                        onChange={setRequestSubjectAuto}
                         value={requestSubjectAuto.gradeClass}
                       >
                         {GradeClassDropdown?.map((item) => {
@@ -323,16 +255,14 @@ const PlanWrite = () => {
                       <input
                         type="Date"
                         name="date"
-                        onChange={changeDaySelectChange}
+                        onChange={setChangeSubjectAuto}
                         value={changeSubjectAuto.date}
                       />
                     </td>
                     <td style={{ width: "5%", height: 35 }}>
                       <select
                         name="period"
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          onDropdownChange(e, setChangeSubjectAuto)
-                        }
+                        onChange={setChangeSubjectAuto}
                         value={changeSubjectAuto.period}
                       >
                         {PeriodDropdown?.map((item) => {
@@ -343,9 +273,7 @@ const PlanWrite = () => {
                     <td style={{ width: "6%", height: 35 }}>
                       <select
                         name="gradeClass"
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          onDropdownChange(e, setChangeSubjectAuto)
-                        }
+                        onChange={setChangeSubjectAuto}
                         value={changeSubjectAuto.gradeClass}
                       >
                         {GradeClassDropdown?.map((item) => {
