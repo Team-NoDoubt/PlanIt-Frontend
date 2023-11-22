@@ -134,7 +134,7 @@ const PlanWrite = () => {
               {makeUpClassContents.map((_, index) => {
                 return (
                   <tr key={index}>
-                    <td style={{ width: "13%", height: 35 }}>
+                    <td style={{ width: "13%" }}>
                       <input
                         type="Date"
                         name="date"
@@ -142,7 +142,7 @@ const PlanWrite = () => {
                         value={makeUpSubjectAuto.date}
                       />
                     </td>
-                    <td style={{ width: "6%", height: 35 }}>
+                    <td style={{ width: "6%" }}>
                       <select
                         name="period"
                         onChange={setMakeUpSubjectAuto}
@@ -153,7 +153,7 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "10%", height: 35 }}>
+                    <td style={{ width: "10%" }}>
                       <select
                         name="gradeClass"
                         onChange={setMakeUpSubjectAuto}
@@ -164,13 +164,13 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "32%", height: 35 }}>
+                    <td style={{ width: "32%" }}>
                       <div>{data?.subject}</div>
                     </td>
-                    <td style={{ width: "20%", height: 35 }}>
+                    <td style={{ width: "20%" }}>
                       <input value={planState} onChange={setPlanState} />
                     </td>
-                    <td style={{ width: "15%", height: 35 }}>
+                    <td style={{ width: "15%" }}>
                       <select
                         onChange={handleMakeUpTeacherListChange}
                         value={makeUpTeacherList}
@@ -215,7 +215,7 @@ const PlanWrite = () => {
               {replaceClassContents.map((_, index) => {
                 return (
                   <tr key={index}>
-                    <td style={{ width: "14%", height: 35 }}>
+                    <td style={{ width: "14%" }}>
                       <input
                         type="Date"
                         name="date"
@@ -223,7 +223,7 @@ const PlanWrite = () => {
                         value={requestSubjectAuto.date}
                       />
                     </td>
-                    <td style={{ width: "5%", height: 35 }}>
+                    <td style={{ width: "5%" }}>
                       <select
                         name="period"
                         onChange={setRequestSubjectAuto}
@@ -234,7 +234,7 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "6%", height: 35 }}>
+                    <td style={{ width: "6%" }}>
                       <select
                         name="gradeClass"
                         onChange={setRequestSubjectAuto}
@@ -245,13 +245,13 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "16%", height: 35 }}>
+                    <td style={{ width: "16%" }}>
                       <div style={{ width: "100%" }}>
                         {requestSubject?.subject}
                       </div>
                     </td>
-                    <td style={{ width: "4%", height: 35 }}>↔️</td>
-                    <td style={{ width: "14%", height: 35 }}>
+                    <td style={{ width: "4%" }}>↔️</td>
+                    <td style={{ width: "14%" }}>
                       <input
                         type="Date"
                         name="date"
@@ -259,7 +259,7 @@ const PlanWrite = () => {
                         value={changeSubjectAuto.date}
                       />
                     </td>
-                    <td style={{ width: "5%", height: 35 }}>
+                    <td style={{ width: "5%" }}>
                       <select
                         name="period"
                         onChange={setChangeSubjectAuto}
@@ -270,7 +270,7 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "6%", height: 35 }}>
+                    <td style={{ width: "6%" }}>
                       <select
                         name="gradeClass"
                         onChange={setChangeSubjectAuto}
@@ -281,10 +281,10 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "16%", height: 35 }}>
+                    <td style={{ width: "16%" }}>
                       <div>{changeSubject?.subject}</div>
                     </td>
-                    <td style={{ width: "10%", height: 35 }}>
+                    <td style={{ width: "10%" }}>
                       <select
                         onChange={handleReplaceTeacherListChange}
                         value={replaceTeacherList}
