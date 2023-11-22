@@ -55,9 +55,9 @@ const PlanWrite = () => {
 
   const { data: teacherListInquiryData } = teacherListInquiry();
   const { form: makeUpTeacherList, onChange: handleMakeUpTeacherListChange } =
-    useInput(teacherListInquiryData?.teacher_id_list[0].teacher_id.toString()!);
+    useInput(teacherListInquiryData?.teacher_id_list[0]?.teacher_id.toString());
   const { form: replaceTeacherList, onChange: handleReplaceTeacherListChange } =
-    useInput(teacherListInquiryData?.teacher_id_list[0].teacher_id.toString()!);
+    useInput(teacherListInquiryData?.teacher_id_list[0]?.teacher_id.toString());
 
   const { form: reasonState, onChange: setReasonState } = useInput("");
   const { form: planState, onChange: setPlanState } = useInput("");
@@ -81,14 +81,14 @@ const PlanWrite = () => {
         {
           reinforcement_class_id: data?.timetable_id!,
           reinforcement_plan: planState,
-          reinforcement_teacher_id: makeUpTeacherList,
+          reinforcement_teacher_id: makeUpTeacherList!,
         },
       ],
       replacement_list: [
         {
           request_timetable_id: requestSubject?.timetable_id!,
           change_timetable_id: changeSubject?.timetable_id!,
-          replacement_teacher_id: replaceTeacherList,
+          replacement_teacher_id: replaceTeacherList!,
         },
       ],
     });
