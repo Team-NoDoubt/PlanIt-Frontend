@@ -61,8 +61,6 @@ export const Reason = styled.div`
 `;
 
 export const ReasonInput = styled.input`
-  outline: none;
-  border: none;
   width: 700px;
 `;
 
@@ -89,19 +87,14 @@ export const PlanTable = styled.table`
 export const PlanTableContent = styled(PlanTable)`
   background-color: ${({ theme }) => theme.colors.White};
   td {
-    border-top: none;
     cursor: pointer;
   }
   input {
-    border: none;
-    outline: none;
     text-align: center;
   }
 `;
 
 export const TableInput = styled.input`
-  border: none;
-  outline: none;
   font: ${({ theme }) => theme.fonts.Regular16};
   text-align: center;
 `;
