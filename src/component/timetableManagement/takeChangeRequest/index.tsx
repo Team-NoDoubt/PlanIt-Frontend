@@ -1,7 +1,9 @@
 import * as S from "./style";
 import { TypeContent } from "../../../constants/timetableManagement";
-import List from "./list";
 import { AcceptBtn, RejectBtn } from "../../../assets/icons";
+import { useState } from "react";
+import { getReplacementClassList } from "../../../utils/apis/changeMaster";
+import List from "./list";
 
 const TakeChangeRequest = () => {
   // const [checked, setChecked] = useState<string[]>([]);
@@ -20,6 +22,8 @@ const TakeChangeRequest = () => {
   //     }
   //     console.log(`allcheck = `, e.target.checked);
   //   };
+  const [checked, setChecked] = useState(false);
+  const { data } = getReplacementClassList("");
   return (
     <S.Container>
       <S.StatusType>
@@ -43,7 +47,13 @@ const TakeChangeRequest = () => {
           })}
         </S.TypeContent>
       </S.StatusType>
-      <List />
+      <S.TakeRequestListWrapper>
+        <S.TakeRequestList check={checked}>
+          {data?.replacement_class_list.map((item, index) => {
+            return <List {...item} key={index} />;
+          })}
+        </S.TakeRequestList>
+      </S.TakeRequestListWrapper>
     </S.Container>
   );
 };
