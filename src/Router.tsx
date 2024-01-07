@@ -1,11 +1,11 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
   LoginPage,
   MainPage,
   SentChangeRequestDetailPage,
   TimetableManagementPage,
   PlanWritingPage,
-} from "./pages";
+} from './pages';
 
 function Router() {
   return (

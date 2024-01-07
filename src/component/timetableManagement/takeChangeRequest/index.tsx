@@ -1,7 +1,7 @@
-import * as S from "./style";
-import { TypeContent } from "../../../constants/timetableManagement";
-import List from "./list";
-import { AcceptBtn, RejectBtn } from "../../../assets/icons";
+import * as S from './style';
+import { TypeContent } from '../../../constants/timetableManagement';
+import List from './list';
+import { AcceptBtn, RejectBtn } from '../../../assets/icons';
 
 const TakeChangeRequest = () => {
   // const [checked, setChecked] = useState<string[]>([]);

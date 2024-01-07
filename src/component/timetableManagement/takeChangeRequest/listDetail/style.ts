@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
 export const ListDetailWrapper = styled.div`
   height: 120px;
@@ -24,7 +24,7 @@ export const AcceptBtn = styled.div`
   cursor: pointer;
   position: relative;
   &:hover::before {
-    content: "수락";
+    content: '수락';
     font: ${({ theme }) => theme.fonts.Regular16};
     position: absolute;
     width: 50px;
@@ -42,7 +42,7 @@ export const AcceptBtn = styled.div`
 
 export const RejectBtn = styled(AcceptBtn)`
   &:hover::before {
-    content: "거절";
+    content: '거절';
   }
 `;
 

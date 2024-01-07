@@ -1,18 +1,18 @@
-import { DefaultTheme } from "styled-components";
+import { DefaultTheme } from 'styled-components';
 
 const colors = {
-  Main: "#1567FB",
-  Background: "#F3F7FD",
-  White: "#FFFFFF",
-  Black: "#000000",
-  TableLine: "#CBCBCB",
-  HelpDiscription: "#AAAAAA",
-  LoginInput: "#999999",
-  Skyblue: "#A8D0E6",
-  BottomLine: "#E0E7EE",
-  ListCheck: "#EFF5FB",
-  ListDetailBackground: "#F7F7F7",
-  ListContent: "#4D4D4D",
+  Main: '#1567FB',
+  Background: '#F3F7FD',
+  White: '#FFFFFF',
+  Black: '#000000',
+  TableLine: '#CBCBCB',
+  HelpDiscription: '#AAAAAA',
+  LoginInput: '#999999',
+  Skyblue: '#A8D0E6',
+  BottomLine: '#E0E7EE',
+  ListCheck: '#EFF5FB',
+  ListDetailBackground: '#F7F7F7',
+  ListContent: '#4D4D4D',
 };
 
 const fonts = {

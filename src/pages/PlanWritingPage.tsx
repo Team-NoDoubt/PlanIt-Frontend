@@ -1,5 +1,5 @@
-import Header from "../component/header";
-import PlanWrite from "../component/timetableManagement/planWrite";
+import Header from '../component/header';
+import PlanWrite from '../component/timetableManagement/planWrite';
 
 const PlanWritingPage = () => {
   return (

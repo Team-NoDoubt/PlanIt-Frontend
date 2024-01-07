@@ -1,13 +1,13 @@
-import * as S from "./style";
-import { PlanitLogo } from "../../assets/logo";
-import { LoginLeft, LoginRight } from "../../assets/icons";
-import { useState, ChangeEvent } from "react";
-import { postLogin } from "../../utils/apis/login";
+import * as S from './style';
+import { PlanitLogo } from '../../assets/logo';
+import { LoginLeft, LoginRight } from '../../assets/icons';
+import { useState, ChangeEvent } from 'react';
+import { postLogin } from '../../utils/apis/login';
 
 const Login = () => {
   const [loginOption, setLoginOption] = useState({
-    id: "",
-    password: "",
+    id: '',
+    password: '',
   });
   const { id, password } = loginOption;
   const { mutate: onClickLoginBtn } = postLogin({

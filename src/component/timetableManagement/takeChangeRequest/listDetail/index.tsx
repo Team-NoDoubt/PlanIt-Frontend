@@ -1,5 +1,5 @@
-import * as S from "./style";
-import { ChangeIcon, AcceptBtn, RejectBtn } from "../../../../assets/icons";
+import * as S from './style';
+import { ChangeIcon, AcceptBtn, RejectBtn } from '../../../../assets/icons';
 const ListDetail = () => {
   return (
     <S.ListDetailWrapper>

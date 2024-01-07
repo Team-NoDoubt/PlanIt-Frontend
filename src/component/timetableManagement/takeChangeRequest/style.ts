@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
 export const Container = styled.div`
   margin-left: 5vw;
@@ -40,7 +40,7 @@ export const CheckBox = styled.input`
   position: relative;
   /* :hover 상태일 때 가상 요소를 사용하여 "전체 선택" 텍스트 표시 */
   &:hover::before {
-    content: "전체선택";
+    content: '전체선택';
     font: ${({ theme }) => theme.fonts.Regular12};
     position: absolute;
     width: 60px;
@@ -60,7 +60,7 @@ export const AcceptBtn = styled.div`
   cursor: pointer;
   position: relative;
   &:hover::before {
-    content: "수락";
+    content: '수락';
     font: ${({ theme }) => theme.fonts.Regular16};
     position: absolute;
     width: 50px;
@@ -78,6 +78,6 @@ export const AcceptBtn = styled.div`
 
 export const RejectBtn = styled(AcceptBtn)`
   &:hover::before {
-    content: "거절";
+    content: '거절';
   }
 `;

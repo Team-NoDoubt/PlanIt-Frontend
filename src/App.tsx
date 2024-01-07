@@ -1,10 +1,10 @@
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import Router from "./Router";
-import GlobalStyle from "./style/globalStyle";
-import { ThemeProvider } from "styled-components";
-import theme from "./utils/theme/theme";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import Router from './Router';
+import GlobalStyle from './style/GlobalStyle';
+import { ThemeProvider } from 'styled-components';
+import theme from './utils/theme/Theme';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const queryClient = new QueryClient();
 

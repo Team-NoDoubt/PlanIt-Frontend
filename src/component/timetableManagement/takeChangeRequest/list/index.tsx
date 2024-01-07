@@ -1,6 +1,6 @@
-import { useState } from "react";
-import ListDetail from "../listDetail";
-import * as S from "./style";
+import { useState } from 'react';
+import ListDetail from '../listDetail';
+import * as S from './style';
 
 const List = () => {
   const [checked, setChecked] = useState(false);

@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from 'react';
 import {
   WriteIcon,
   TakeChangeRequestIcon,
   SentChangeRequestIcon,
-} from "../../../assets/icons";
-import * as S from "./style";
-import { useNavigate } from "react-router-dom";
+} from '../../../assets/icons';
+import * as S from './style';
+import { useNavigate } from 'react-router-dom';
 
 interface PropsType {
   selectTab: boolean;
@@ -18,7 +18,7 @@ const Sidebar = ({ selectTab, setSelectTab }: PropsType) => {
     <S.Container>
       <S.WriteButton
         onClick={() => {
-          navigate("/planWritingPage");
+          navigate('/planWritingPage');
         }}
       >
         <img src={WriteIcon} />

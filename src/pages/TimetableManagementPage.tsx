@@ -1,5 +1,5 @@
-import Header from "../component/header";
-import TimetableManagement from "../component/timetableManagement";
+import Header from '../component/header';
+import TimetableManagement from '../component/timetableManagement';
 
 const TimetableManagementPage = () => {
   return (

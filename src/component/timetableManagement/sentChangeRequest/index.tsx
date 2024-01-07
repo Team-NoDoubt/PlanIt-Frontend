@@ -1,6 +1,6 @@
-import { SentRequestType } from "../../../constants/timetableManagement";
-import * as S from "./style";
-import { useNavigate } from "react-router";
+import { SentRequestType } from '../../../constants/timetableManagement';
+import * as S from './style';
+import { useNavigate } from 'react-router';
 
 const SentChangeRequest = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const SentChangeRequest = () => {
         <S.SentRequestListWrapper>
           <S.SentRequestList
             onClick={() => {
-              navigate("/sentChangeRequestDetail");
+              navigate('/sentChangeRequestDetail');
             }}
           >
             <span>요청중</span>

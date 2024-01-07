@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
 export const HeaderArea = styled.div`
   font: ${({ theme }) => theme.fonts.Medium20};
@@ -33,7 +33,7 @@ export const Page = styled.div`
   position: relative;
   cursor: pointer;
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     bottom: -3px;

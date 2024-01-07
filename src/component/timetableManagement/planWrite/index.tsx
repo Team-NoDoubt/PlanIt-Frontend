@@ -1,20 +1,20 @@
-import * as S from "./style";
+import * as S from './style';
 import {
   WirteMakeupClass,
   WirteReplaceClass,
   PeriodDropdown,
   GradeClassDropdown,
-} from "../../../constants/timetableManagement";
-import { useState } from "react";
-import { AddList } from "../../../assets/icons";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-import DownLoadImg from "../../../assets/icons/Download.svg";
-import { useCookies } from "react-cookie";
-import { subjectInquiry, postPlanWrite } from "../../../utils/apis/timetables";
-import { teacherListInquiry } from "../../../utils/apis/teachers";
-import { PlanWriteType } from "../../../utils/apis/timetables/type";
-import { useInput } from "../../../hooks/useInput";
+} from '../../../constants/timetableManagement';
+import { useState } from 'react';
+import { AddList } from '../../../assets/icons';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import DownLoadImg from '../../../assets/icons/Download.svg';
+import { useCookies } from 'react-cookie';
+import { subjectInquiry, postPlanWrite } from '../../../utils/apis/timetables';
+import { teacherListInquiry } from '../../../utils/apis/teachers';
+import { PlanWriteType } from '../../../utils/apis/timetables/type';
+import { useInput } from '../../../hooks/useInput';
 
 const PlanWrite = () => {
   const [cookies] = useCookies();
@@ -26,33 +26,38 @@ const PlanWrite = () => {
   const converToPdf = async () => {
     const date = new Date();
 
-    const canvas = await html2canvas(document.querySelector("#wrting")!);
-    const imageFile = canvas.toDataURL("image/png");
-    const doc = new jsPDF("p", "mm", "a4");
+    const canvas = await html2canvas(document.querySelector('#wrting')!);
+    const imageFile = canvas.toDataURL('image/png');
+    const doc = new jsPDF('p', 'mm', 'a4');
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
 
     const widthRatio = pageWidth / canvas.width;
     const customHeight = canvas.height * widthRatio;
-    doc.addImage(imageFile, "png", 0, 0, pageWidth, customHeight);
+    doc.addImage(imageFile, 'png', 0, 0, pageWidth, customHeight);
     let heightLeft = customHeight;
     let heightAdd = -pageHeight;
 
     while (heightLeft >= pageHeight) {
       doc.addPage();
-      doc.addImage(imageFile, "png", 0, heightAdd, pageWidth, customHeight);
+      doc.addImage(imageFile, 'png', 0, heightAdd, pageWidth, customHeight);
       heightLeft -= pageHeight;
       heightAdd -= pageHeight;
     }
-    doc.save(`결 보강 및 수업교체 계획서_${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}.pdf`);
+    doc.save(
+      `결 보강 및 수업교체 계획서_${date.getFullYear()}-${
+        date.getMonth() + 1
+      }-${date.getDate()}.pdf`
+    );
+  };
   const today = new Date();
   const subjectAuto = () => ({
     date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
       2,
-      "0"
-    )}-${String(today.getDate()).padStart(2, "0")}`,
-    period: "1",
-    gradeClass: "1-1",
+      '0'
+    )}-${String(today.getDate()).padStart(2, '0')}`,
+    period: '1',
+    gradeClass: '1-1',
   });
   const { form: makeUpSubjectAuto, onChange: setMakeUpSubjectAuto } = useInput(
     subjectAuto()
@@ -84,11 +89,11 @@ const PlanWrite = () => {
   const { form: replaceTeacherList, onChange: handleReplaceTeacherListChange } =
     useInput(teacherListInquiryData?.teacher_id_list[0]?.teacher_id.toString());
 
-  const { form: reasonState, onChange: setReasonState } = useInput("");
-  const { form: planState, onChange: setPlanState } = useInput("");
+  const { form: reasonState, onChange: setReasonState } = useInput('');
+  const { form: planState, onChange: setPlanState } = useInput('');
 
   const [planWrite, setPlanWrite] = useState<PlanWriteType>({
-    reason: "",
+    reason: '',
     reinforcement_list: [],
     replacement_list: [],
   });
@@ -104,16 +109,16 @@ const PlanWrite = () => {
       reason: reasonState,
       reinforcement_list: [
         {
-          reinforcement_class_id: data?.timetable_id!,
+          reinforcement_class_id: data?.timetable_id || 0,
           reinforcement_plan: planState,
           reinforcement_teacher_id: makeUpTeacherList!,
         },
       ],
       replacement_list: [
         {
-          request_timetable_id: requestSubject?.timetable_id!,
-          change_timetable_id: changeSubject?.timetable_id!,
-          replacement_teacher_id: replaceTeacherList!,
+          request_timetable_id: requestSubject?.timetable_id || 0,
+          change_timetable_id: changeSubject?.timetable_id || 0,
+          replacement_teacher_id: replaceTeacherList || '',
         },
       ],
     });
@@ -133,7 +138,7 @@ const PlanWrite = () => {
             <S.HeaderText>
               <S.Teacher>요청교사: {name}</S.Teacher>
               <S.Reason>
-                사유:{" "}
+                사유:{' '}
                 <S.ReasonInput
                   placeholder="사유를 입력해 주세요"
                   value={reasonState}
@@ -162,7 +167,7 @@ const PlanWrite = () => {
               {makeUpClassContents.map((_, index) => {
                 return (
                   <tr key={index}>
-                    <td style={{ width: "13%" }}>
+                    <td style={{ width: '13%', height: 35 }}>
                       <input
                         type="Date"
                         name="date"
@@ -170,7 +175,7 @@ const PlanWrite = () => {
                         value={makeUpSubjectAuto.date}
                       />
                     </td>
-                    <td style={{ width: "6%" }}>
+                    <td style={{ width: '6%' }}>
                       <select
                         name="period"
                         onChange={setMakeUpSubjectAuto}
@@ -181,7 +186,7 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "10%" }}>
+                    <td style={{ width: '10%' }}>
                       <select
                         name="gradeClass"
                         onChange={setMakeUpSubjectAuto}
@@ -192,13 +197,13 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "32%" }}>
+                    <td style={{ width: '32%' }}>
                       <div>{data?.subject}</div>
                     </td>
-                    <td style={{ width: "20%" }}>
+                    <td style={{ width: '20%' }}>
                       <input value={planState} onChange={setPlanState} />
                     </td>
-                    <td style={{ width: "15%" }}>
+                    <td style={{ width: '15%' }}>
                       <select
                         onChange={handleMakeUpTeacherListChange}
                         value={makeUpTeacherList}
@@ -219,7 +224,9 @@ const PlanWrite = () => {
               })}
             </tbody>
           </S.PlanTableContent>
-          <S.AddListIconLayout onClick={() => setMakeUpClassContents((prev) => [...prev, 0])}>
+          <S.AddListIconLayout
+            onClick={() => setMakeUpClassContents((prev) => [...prev, 0])}
+          >
             <img src={AddList} />
           </S.AddListIconLayout>
           <S.PlanText>수업교체 계획서</S.PlanText>
@@ -241,7 +248,7 @@ const PlanWrite = () => {
               {replaceClassContents.map((_, index) => {
                 return (
                   <tr key={index}>
-                    <td style={{ width: "14%" }}>
+                    <td style={{ width: '14%' }}>
                       <input
                         type="Date"
                         name="date"
@@ -249,7 +256,7 @@ const PlanWrite = () => {
                         value={requestSubjectAuto.date}
                       />
                     </td>
-                    <td style={{ width: "5%" }}>
+                    <td style={{ width: '5%' }}>
                       <select
                         name="period"
                         onChange={setRequestSubjectAuto}
@@ -260,7 +267,7 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "6%" }}>
+                    <td style={{ width: '6%' }}>
                       <select
                         name="gradeClass"
                         onChange={setRequestSubjectAuto}
@@ -271,13 +278,13 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "16%" }}>
-                      <div style={{ width: "100%" }}>
+                    <td style={{ width: '16%' }}>
+                      <div style={{ width: '100%' }}>
                         {requestSubject?.subject}
                       </div>
                     </td>
-                    <td style={{ width: "4%" }}>↔️</td>
-                    <td style={{ width: "14%" }}>
+                    <td style={{ width: '4%' }}>↔️</td>
+                    <td style={{ width: '14%' }}>
                       <input
                         type="Date"
                         name="date"
@@ -285,7 +292,7 @@ const PlanWrite = () => {
                         value={changeSubjectAuto.date}
                       />
                     </td>
-                    <td style={{ width: "5%" }}>
+                    <td style={{ width: '5%' }}>
                       <select
                         name="period"
                         onChange={setChangeSubjectAuto}
@@ -296,7 +303,7 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "6%" }}>
+                    <td style={{ width: '6%' }}>
                       <select
                         name="gradeClass"
                         onChange={setChangeSubjectAuto}
@@ -307,10 +314,10 @@ const PlanWrite = () => {
                         })}
                       </select>
                     </td>
-                    <td style={{ width: "16%" }}>
+                    <td style={{ width: '16%' }}>
                       <div>{changeSubject?.subject}</div>
                     </td>
-                    <td style={{ width: "10%" }}>
+                    <td style={{ width: '10%' }}>
                       <select
                         onChange={handleReplaceTeacherListChange}
                         value={replaceTeacherList}
@@ -331,7 +338,9 @@ const PlanWrite = () => {
               })}
             </tbody>
           </S.PlanTableContent>
-          <S.AddListIconLayout onClick={() => setReplaceClassContents((prev) => [...prev, 0])}>
+          <S.AddListIconLayout
+            onClick={() => setReplaceClassContents((prev) => [...prev, 0])}
+          >
             <img src={AddList} />
           </S.AddListIconLayout>
         </S.Wrapper>

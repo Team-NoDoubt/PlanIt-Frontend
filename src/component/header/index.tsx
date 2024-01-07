@@ -1,7 +1,7 @@
-import * as S from "./style";
-import { PlanitLogo } from "../../assets/logo";
-import { Alram } from "../../assets/icons";
-import { useNavigate } from "react-router-dom";
+import * as S from './style';
+import { PlanitLogo } from '../../assets/logo';
+import { Alram } from '../../assets/icons';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -10,13 +10,13 @@ const Header = () => {
       <img
         src={PlanitLogo}
         onClick={() => {
-          navigate("/main");
+          navigate('/main');
         }}
       />
       <S.PageWrapper>
         <S.Page
           onClick={() => {
-            navigate("/timetableManagement");
+            navigate('/timetableManagement');
           }}
         >
           시간표 관리

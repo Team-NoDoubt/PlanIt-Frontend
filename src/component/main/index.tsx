@@ -1,17 +1,17 @@
-import ClassChange from "./classChange";
-import TimeTable from "./timeTable";
-import * as S from "./style";
-import { ChangeEvent, useState } from "react";
+import ClassChange from './classChange';
+import TimeTable from './timeTable';
+import * as S from './style';
+import { ChangeEvent, useState } from 'react';
 import {
   getChangeDetailsList,
   getTimetableList,
-} from "../../utils/apis/timetables";
-import { Class, Grade } from "../../constants/main";
+} from '../../utils/apis/timetables';
+import { Class, Grade } from '../../constants/main';
 
 const Main = () => {
   const [selectOption, setSelectOption] = useState({
-    gradeOption: "1",
-    classOption: "1",
+    gradeOption: '1',
+    classOption: '1',
   });
 
   const { gradeOption, classOption } = selectOption;

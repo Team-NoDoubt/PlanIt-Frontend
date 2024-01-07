@@ -1,7 +1,7 @@
-import { ChangeIcon } from "../../../assets/icons";
-import { SubjectMap } from "../../../constants/type";
-import { ChangeClassResponse } from "../../../utils/apis/timetables/type";
-import * as S from "./style";
+import { ChangeIcon } from '../../../assets/icons';
+import { SubjectMap } from '../../../constants/type';
+import { ChangeClassResponse } from '../../../utils/apis/timetables/type';
+import * as S from './style';
 
 interface PropsType {
   data: ChangeClassResponse;
