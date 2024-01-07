@@ -33,6 +33,7 @@ export const Container = styled.div`
   width: 940px;
   height: 800px;
   margin-top: 15vh;
+  margin-bottom: 8vh;
   padding: 20px 52px;
 `;
 
