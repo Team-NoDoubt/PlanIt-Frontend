@@ -35,11 +35,12 @@ export const ChangeRequest = styled.div<{ click?: boolean }>`
   display: flex;
   justify-content: start;
   padding: 6px 0 0 20px;
+  align-items: center;
   gap: 10px;
   background-color: ${({ theme, click }) => click && theme.colors.Main};
-  font: ${({ theme, click }) => click && theme.fonts.Light16};
+  font: ${({ theme, click }) => click && theme.fonts.Light10};
   color: ${({ theme, click }) => click && theme.colors.White};
-  font: ${({ theme }) => theme.fonts.Light16};
+  font: ${({ theme }) => theme.fonts.Light10};
   border: none;
   cursor: pointer;
   border-radius: 0 15px;

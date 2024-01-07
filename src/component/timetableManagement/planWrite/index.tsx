@@ -7,6 +7,9 @@ import {
 } from "../../../constants/timetableManagement";
 import { useState } from "react";
 import { AddList } from "../../../assets/icons";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import DownLoadImg from "../../../assets/icons/Download.svg";
 import { useCookies } from "react-cookie";
 import { subjectInquiry, postPlanWrite } from "../../../utils/apis/timetables";
 import { teacherListInquiry } from "../../../utils/apis/teachers";
@@ -20,6 +23,28 @@ const PlanWrite = () => {
   const [replaceClassContents, setReplaceClassContents] = useState([0]);
   const [makeUpClassContents, setMakeUpClassContents] = useState([0]);
 
+  const converToPdf = async () => {
+    const date = new Date();
+
+    const canvas = await html2canvas(document.querySelector("#wrting")!);
+    const imageFile = canvas.toDataURL("image/png");
+    const doc = new jsPDF("p", "mm", "a4");
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    const widthRatio = pageWidth / canvas.width;
+    const customHeight = canvas.height * widthRatio;
+    doc.addImage(imageFile, "png", 0, 0, pageWidth, customHeight);
+    let heightLeft = customHeight;
+    let heightAdd = -pageHeight;
+
+    while (heightLeft >= pageHeight) {
+      doc.addPage();
+      doc.addImage(imageFile, "png", 0, heightAdd, pageWidth, customHeight);
+      heightLeft -= pageHeight;
+      heightAdd -= pageHeight;
+    }
+    doc.save(`결 보강 및 수업교체 계획서_${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}.pdf`);
   const today = new Date();
   const subjectAuto = () => ({
     date: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
@@ -98,7 +123,10 @@ const PlanWrite = () => {
   return (
     <S.Area>
       <S.RequestButton onClick={requestForm}>요청하기</S.RequestButton>
-      <S.Container>
+      <S.DownLoadButton onClick={converToPdf}>
+        <img src={DownLoadImg} width={30} />
+      </S.DownLoadButton>
+      <S.Container id="wrting">
         <S.Wrapper>
           <S.Header>
             <span>결 보강 및 수업교체 계획서</span>
@@ -191,9 +219,7 @@ const PlanWrite = () => {
               })}
             </tbody>
           </S.PlanTableContent>
-          <S.AddListIconLayout
-            onClick={() => setMakeUpClassContents((prev) => [...prev, 0])}
-          >
+          <S.AddListIconLayout onClick={() => setMakeUpClassContents((prev) => [...prev, 0])}>
             <img src={AddList} />
           </S.AddListIconLayout>
           <S.PlanText>수업교체 계획서</S.PlanText>
@@ -305,9 +331,7 @@ const PlanWrite = () => {
               })}
             </tbody>
           </S.PlanTableContent>
-          <S.AddListIconLayout
-            onClick={() => setReplaceClassContents((prev) => [...prev, 0])}
-          >
+          <S.AddListIconLayout onClick={() => setReplaceClassContents((prev) => [...prev, 0])}>
             <img src={AddList} />
           </S.AddListIconLayout>
         </S.Wrapper>

@@ -5,4 +5,5 @@ export const Container = styled.div`
   padding-top: 15vh;
   height: 100vh;
   display: flex;
+  overflow: scroll;
 `;

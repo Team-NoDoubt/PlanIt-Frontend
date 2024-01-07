@@ -16,6 +16,7 @@ export const Container = styled.div`
   width: 940px;
   min-height: 800px;
   margin-top: 15vh;
+  margin-bottom: 8vh;
   padding: 52px 26px;
 `;
 
@@ -121,6 +122,23 @@ export const RequestButton = styled.button`
   padding: 8px 24px;
   background-color: ${({ theme }) => theme.colors.Main};
   border-radius: 10px;
+  font: ${({ theme }) => theme.fonts.Semibold24};
+  color: ${({ theme }) => theme.colors.White};
+  cursor: pointer;
+`;
+
+export const DownLoadButton = styled.button`
+  position: fixed;
+  left: 5vw;
+  bottom: 3vh;
+  width: auto;
+  border: 0;
+  outline: 0;
+  width: 50px;
+  height: 50px;
+  /* padding: 8px 8px; */
+  background-color: ${({ theme }) => theme.colors.Black};
+  border-radius: 50px;
   font: ${({ theme }) => theme.fonts.Semibold24};
   color: ${({ theme }) => theme.colors.White};
   cursor: pointer;
