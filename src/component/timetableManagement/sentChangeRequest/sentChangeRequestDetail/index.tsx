@@ -1,13 +1,13 @@
-import * as S from "./style";
-import { ModifyIcon } from "../../../../assets/icons";
+import * as S from './style';
+import { ModifyIcon } from '../../../../assets/icons';
 import {
   MakeupClassContent,
   MakeupClassType,
   ReplaceClassContent,
   ReplaceClassType,
-} from "../../../../constants/timetableManagement";
-import { useState } from "react";
-import ReasonCheck from "../../../modal/reasonCheck";
+} from '../../../../constants/timetableManagement';
+import { useState } from 'react';
+import ReasonCheck from '../../../modal/reasonCheck';
 
 const SentChangeRequestDetail = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);

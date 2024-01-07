@@ -34,7 +34,7 @@ const Login = () => {
         onChange={onloginOptionChange}
         type="password"
       />
-      <S.LoginBtn disabled={!id || !password} onClick={onClickLoginBtn}>
+      <S.LoginBtn disabled={!id || !password} onClick={() => onClickLoginBtn()}>
         Login
       </S.LoginBtn>
     </S.LoginArea>

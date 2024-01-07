@@ -149,7 +149,7 @@ const PlanWrite = () => {
             </S.HeaderText>
           </S.Header>
           <S.PlanText>결 보강 계획서</S.PlanText>
-          <S.PlanTable name="dte">
+          <S.PlanTable>
             <tbody>
               <tr>
                 {WirteMakeupClass.map((item, index) => {
